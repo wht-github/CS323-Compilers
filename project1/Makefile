@@ -1,8 +1,10 @@
-CC=gcc
+CC=g++
+FLEX=flex
 splc:
 	@mkdir bin
-	touch bin/splc
-	@chmod +x bin/splc
+	$(FLEX) lex.l
+	$(CC) lex.yy.c -lfl -o ./bin/splc
+	@chmod +x ./bin/splc 
 clean:
 	@rm -rf bin/
 .PHONY: splc
