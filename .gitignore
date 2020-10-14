@@ -11,3 +11,6 @@ syntax.tab.[hc]
 bin
 !*/test/*.out
 .vscode/
+project1/src/*.yy.cpp
+project1/src/*.tab.*
+project1/src/*.output
