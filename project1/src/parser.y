@@ -9,7 +9,7 @@ extern ast_Top *g_root;
 %union {
   long int_value;
   float float_value;
-  char char_value;
+  std::string * char_value;
   std::string * type_value;
   std::string * id_value;
   std::string * kw_value;

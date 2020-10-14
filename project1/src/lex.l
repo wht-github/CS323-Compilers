@@ -25,7 +25,7 @@
 %}
 %option noyywrap
 INT  0|-?[1-9][0-9]{0,9}|-?0[xX][1-9a-fA-F][0-9a-fA-F]*
-FLOAT -?[1-9][0-9]*\.[0-9]+
+FLOAT -?[0-9]*\.[0-9]+
 CHAR \'[a-zA-Z]\'|\'\\x[1-9a-fA-F][0-9a-fA-F]*\'
 ID  [a-zA-Z][a-zA-Z0-9_]*|_[a-zA-Z0-9_]+
 TYPE     int|float|char
@@ -220,9 +220,9 @@ SPC     [ \t]
   return TYPE;
 }
 {INT} {
-  yylval.int_value = new std::stoi(yytext, nullptr, 0); 
+  yylval.int_value = std::stoi(yytext, nullptr, 0); 
   #ifdef DEBUG
-  lexlog(*yylval.int_value);
+  lexlog(yylval.int_value);
   #endif
   return INT;}
 
@@ -233,13 +233,13 @@ SPC     [ \t]
   #endif
   return ID;}
 {CHAR} {
-  yylval.char_value = yytext[1];
+  yylval.char_value = new std::string(yytext);
   #ifdef DEBUG
-  lexlog(yylval.char_value);
+  lexlog(*yylval.char_value);
   #endif
   return CHAR;}
 {FLOAT} {
-  yylval.float_value = std::stoi(yytext, nullptr, 0); 
+  yylval.float_value = ::atof(yytext); 
   #ifdef DEBUG
   lexlog(yylval.float_value);
   #endif
