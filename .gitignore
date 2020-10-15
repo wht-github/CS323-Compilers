@@ -9,7 +9,7 @@ peda-session-*
 lex.yy.c
 syntax.tab.[hc]
 bin
-!*/test/*.out
+!*/class_test/*.out
 .vscode/
 project1/src/*.yy.cpp
 project1/src/*.tab.*

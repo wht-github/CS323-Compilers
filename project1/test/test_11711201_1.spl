@@ -1,0 +1,5 @@
+
+int test_1_r02()
+{
+  global = global + 1
+}

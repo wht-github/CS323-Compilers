@@ -29,10 +29,10 @@ public:
 class ValInt : public Base
 {
 private:
-    int val;
+    unsigned int val;
 
 public:
-    ValInt(int _val) : val(_val) {}
+    ValInt(unsigned int _val) : val(_val) {}
 
     virtual void print(int idt = 0) const
     {

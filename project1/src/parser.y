@@ -1,13 +1,15 @@
 %code requires{
 #include "ast.hpp"
 #include<string>
+#include<iostream>
 extern ast_Top *g_root; // A way of getting the AST out
   int yylex();
   void yyerror(const char *);
+  
 }
 
 %union {
-  int int_value;
+  unsigned int int_value;
   float float_value;
   std::string * char_value;
   std::string * type_value;
@@ -36,7 +38,7 @@ extern ast_Top *g_root; // A way of getting the AST out
 
 %nonassoc LOWER_ELSE
 %nonassoc <kw_value> ELSE
-%nonassoc UNKNOWN_LEXEME
+%nonassoc UNKNOWN_LEXIUM
 %right <kw_value> ASSIGN
 %left <kw_value> OR
 %left <kw_value> AND
@@ -88,9 +90,11 @@ ExtDef:
     $$->push($3);
     }
   | ExtDecList error {
+      std::cerr << "Error type B at Line "<< @$.first_line << ": Missing specifier" << std::endl;
       $$ = new ExtDef($1, @1.first_line);
     }
   | Specifier ExtDecList error {
+      std::cerr << "Error type B at Line "<< @$.first_line << ": Missing semicolon ';''" << std::endl;
       $$ = new ExtDef($1, @1.first_line);
       $$->push($2);
     }
@@ -147,8 +151,8 @@ VarDec:
       $$->push(new ValInt($3));
       $$->push(new Terminal(*$4));
     }
-  | UNKNOWN_LEXEME error {
-      
+  | UNKNOWN_LEXIUM error {
+      $$ = new VarDec(@1.first_line);
     }
   ;
 FunDec:
@@ -164,11 +168,13 @@ FunDec:
       $$->push(new Terminal(*$3));
     }
   | ID LP VarList error {
+      std::cerr << "Error type B at Line "<< @$.first_line << ": Missing closing parenthesis ')'" << std::endl;
       $$ = new FunDec(new ValId(*$1), @1.first_line);
       $$->push(new Terminal(*$2));
       $$->push($3);
     }
   | ID LP error {
+      std::cerr << "Error type B at Line "<< @$.first_line << ": Missing closing parenthesis ')'" << std::endl;
       $$ = new FunDec(new ValId(*$1), @1.first_line);
       $$->push(new Terminal(*$2));
     }
@@ -189,6 +195,7 @@ ParamDec:
       $$->push($2);
     }
   | VarDec error {
+      std::cerr << "Error type B at Line "<< @$.first_line << ": Missing specifier" << std::endl;
       $$ = new ParamDec($1, @1.first_line);
     }
   ;
@@ -206,6 +213,7 @@ CompSt:
       $$->push(new Terminal(*$4));
     }
   | LC DefList StmtList error {
+    std::cerr << "Error type B at Line "<< @$.first_line << ": Missing closing curly bracket '}'" << std::endl;
       $$ = new CompSt(new Terminal(*$1), @1.first_line);
       $$->push($2);
       $$->push($3);
@@ -218,6 +226,7 @@ StmtList:
     }
   | %empty { $$=new StmtList(-1);}
   | Stmt Def StmtList error {
+      std::cerr << "Error type B at Line "<< @$.first_line << ": Missing specifier" << std::endl;
       $$=new StmtList($1, @1.first_line);
       $$->push($2);
       $$->push($3);
@@ -260,12 +269,19 @@ Stmt:
       $$->push($5);
     }
   | Exp error {
+      std::cerr << "Error type B at Line "<< @$.first_line << ": Missing semicolon ';'" << std::endl;
+      $$=new Stmt($1, @1.first_line);
     }
   | RETURN Exp error {
+      std::cerr << "Error type B at Line "<< @$.first_line << ": Missing semicolon ';'" << std::endl;
+      $$=new Stmt(new Terminal(*$1), @1.first_line);
     }
-  | RETURN UNKNOWN_LEXEME error {
+  | RETURN UNKNOWN_LEXIUM error {
+      std::cerr << "Error type B at Line "<< @$.first_line << ": Missing semicolon ';'" << std::endl;
+      $$=new Stmt(new Terminal(*$1), @1.first_line);
     }
-  | RETURN UNKNOWN_LEXEME SEMI error {
+  | RETURN UNKNOWN_LEXIUM SEMI error {
+      $$=new Stmt(new Terminal(*$1), @1.first_line);
     }
   ;
 
@@ -286,6 +302,7 @@ Def:
       $$->push(new Terminal(*$3));
     }
   | Specifier DecList error {
+    std::cerr << "Error type B at Line "<< @$.first_line << ": Missing semicolon ';'" << std::endl;
       $$ = new Def($1, @1.first_line);
       $$->push($2);
     }
@@ -312,7 +329,7 @@ Dec:
       $$->push(new Terminal(*$2));
       $$->push($3);
     }
-  | VarDec ASSIGN UNKNOWN_LEXEME error {
+  | VarDec ASSIGN UNKNOWN_LEXIUM error {
       $$ = new Dec($1, @1.first_line);
     }
   | VarDec ASSIGN error {
@@ -438,6 +455,19 @@ Exp:
   | CHAR {
       $$ = new Exp(new ValChar(*$1), @1.first_line);
     }
+  | Exp UNKNOWN_LEXIUM Exp error {}
+  | ID LP Args error {
+      std::cerr << "Error type B at Line "<< @$.first_line << ": Missing closing parenthesis ')'" << std::endl;
+
+    }
+  | ID LP error {
+      std::cerr << "Error type B at Line "<< @$.first_line << ": Missing closing parenthesis ')'" << std::endl;
+
+    }
+  | Exp LB Exp error {
+      std::cerr << "Error type B at Line "<< @$.first_line << ": Missing closing bracket ']'" << std::endl;
+
+    }
   ;
 Args:
     Exp COMMA Args {
@@ -455,14 +485,18 @@ Args:
   ;
 
 %%
-
+int s_error=0;
 void yyerror(const char *s) {
-  printf("Error type B at Line : ");
+  s_error = 1;
 }
 ast_Top *g_root; // Definition of variable (to match declaration earlier)
 
 ast_Top *parseAST() {
     g_root = new ast_Top;
+    
     yyparse();
+    if (s_error == 1) {
+      exit(1);
+    }
     return g_root;
 }

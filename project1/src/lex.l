@@ -24,10 +24,13 @@
 
 %}
 %option noyywrap
+%option yylineno
+SINGLE_LINE_COMMENT "//".*
+
 INT  0|-?[1-9][0-9]{0,9}|-?0[xX][1-9a-fA-F][0-9a-fA-F]*
 FLOAT -?[0-9]*\.[0-9]+
-CHAR \'[a-zA-Z]\'|\'\\x[1-9a-fA-F][0-9a-fA-F]*\'
-ID  [a-zA-Z][a-zA-Z0-9_]*|_[a-zA-Z0-9_]+
+CHAR \'[a-zA-Z]\'|\'\\x[0-9a-fA-F]*\'
+ID  [a-zA-Z][a-zA-Z0-9_]*|_[a-zA-Z0-9_]*
 TYPE     int|float|char
 STRUCT   "struct"
 IF       "if"
@@ -59,8 +62,17 @@ RB       "]"
 LC       "{"
 RC       "}"
 SPC     [ \t]
-
+ERRID    [0-9][a-zA-Z0-9_]*
+ERRCHAR  \'\\x[0-9a-zA-Z]+\' 
+%x C_COMMENT
 %%
+
+
+"/*"            { BEGIN(C_COMMENT); }
+<C_COMMENT>"*/" { BEGIN(INITIAL); }
+<C_COMMENT>\n   { yycolno = 1;}
+<C_COMMENT>.    { }
+{SINGLE_LINE_COMMENT} {yycolno = 1;}
 {SEMI}  {
   #ifdef DEBUG
   lexlog("SEMI");
@@ -69,11 +81,7 @@ SPC     [ \t]
   return SEMI;
   }
 "\n"  {
-  // #ifdef DEBUG
-  // lexlog(R"(\n)");
-  // #endif
         yycolno = 1;
-        yylineno += 1;
       }
 {SPC}   { ;}
 {DOT}   {
@@ -248,7 +256,7 @@ SPC     [ \t]
   return TYPE;
 }
 {INT} {
-  yylval.int_value = std::stoi(yytext, nullptr, 0); 
+  yylval.int_value = std::strtol(yytext, nullptr, 0); 
   #ifdef DEBUG
   lexlog(yylval.int_value);
   #endif
@@ -261,17 +269,33 @@ SPC     [ \t]
   #endif
   return ID;}
 {CHAR} {
+  if (yytext[1] == '\\' && yytext[2] == 'x') {
+    yytext[1] = '0';
+    long  c = std::strtol(yytext+1, nullptr, 0);
+    yytext[1] = '\\';
+    if (c == 0 || c > 255) {
+      std::cerr << "Error type A at Line " << yylineno <<": unknown lexeme " << yytext << std::endl;
+      return UNKNOWN_LEXIUM;
+    }
+  }
   yylval.char_value = new std::string(yytext);
   #ifdef DEBUG
   lexlog(*yylval.char_value);
   #endif
-  return CHAR;}
+  return CHAR;
+  out: ;}
 {FLOAT} {
   yylval.float_value = ::atof(yytext); 
   #ifdef DEBUG
   lexlog(yylval.float_value);
   #endif
   return FLOAT;}
-
-.                   { std::cerr << "Invalid token: " << yytext << std::endl; }
+{ERRID}|{ERRCHAR} {
+    std::cerr << "Error type A at Line " << yylineno <<": unknown lexeme " << yytext << std::endl;
+    return UNKNOWN_LEXIUM;
+  }
+.  {
+    std::cerr << "Error type A at Line " << yylineno <<": unknown lexeme " << yytext << std::endl;
+    return UNKNOWN_LEXIUM;
+  }
 %%

@@ -11,10 +11,10 @@ PARBUILDDIR := ./build
 PARSRCDIR := ./src
 
 # Make the parser
-bin/parser : $(PARBUILDDIR)/main.o  $(PARBUILDDIR)/parser.tab.o $(PARBUILDDIR)/lex.yy.o 
+splc : $(PARBUILDDIR)/main.o  $(PARBUILDDIR)/parser.tab.o $(PARBUILDDIR)/lex.yy.o 
 	@echo "Linking..."
 	@echo " mkdir -p bin"; mkdir -p bin
-	@echo " $(CC) $^ -o $@"; $(CC) $^ -o $@
+	@echo " $(CC) $^ -o $@"; $(CC) $^ -o bin/$@
 
 $(PARBUILDDIR)/%.yy.o : $(PARSRCDIR)/%.yy.cpp
 	@echo "Building lex..."
@@ -47,5 +47,11 @@ clean :
 	rm -f $(PARSRCDIR)/parser.tab.cpp
 	rm -f $(PARSRCDIR)/parser.tab.hpp
 	rm -f $(PARSRCDIR)/parser.output
+
+tests: 
+	./runtest.sh bin/splc class_test
+	./runtest.sh bin/splc test-ex
+	./runtest.sh bin/splc test
+	
 
 .PHONY : clean

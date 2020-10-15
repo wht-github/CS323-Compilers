@@ -14,6 +14,10 @@ private:
     mutable std::vector<const Base *> list;
     int lineno;
 public:
+    VarDec( int _lineno) : lineno(_lineno)
+    {
+    }
+
     VarDec(const Base *_node, int _lineno) : lineno(_lineno)
     {
         list.push_back(_node);
