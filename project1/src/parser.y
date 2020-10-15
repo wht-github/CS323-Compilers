@@ -1,28 +1,28 @@
 %code requires{
 #include "ast.hpp"
 #include<string>
-extern ast_Top *g_root;
+extern ast_Top *g_root; // A way of getting the AST out
   int yylex();
   void yyerror(const char *);
 }
 
 %union {
-  long int_value;
+  int int_value;
   float float_value;
   std::string * char_value;
   std::string * type_value;
   std::string * id_value;
   std::string * kw_value;
-  char *ast_node;
+  Base * ast_node;
 }
 %locations
-/* %type <ast_node> Program
+%type <ast_node> Program
 %type <ast_node> ExtDefList ExtDef ExtDecList
 %type <ast_node> Specifier StructSpecifier
 %type <ast_node> VarDec FunDec VarList ParamDec
 %type <ast_node> CompSt StmtList Stmt
 %type <ast_node> DefList Def DecList Dec
-%type <ast_node> Exp Args */
+%type <ast_node> Exp Args
 
 %token <int_value> INT
 %token <float_value> FLOAT
@@ -46,8 +46,13 @@ extern ast_Top *g_root;
 %right <kw_value> NOT
 %left <kw_value> LP RP LB RB DOT
 
+%start ROOT
+                        
 %%
 
+ROOT:
+    Program{g_root->push($1);}
+    ;
 /**
  * High-level definition: top-level syntax for a SPL program
  * - global variable declarations
@@ -55,26 +60,42 @@ extern ast_Top *g_root;
  */
 Program:
     ExtDefList {
+      $$ = new AstProgram($1, @1.first_line);
     }
   ;
 ExtDefList:
     ExtDef ExtDefList {
+      $$ = new ExtDefList($1, @1.first_line);
+      $$->push($2);
     }
   | %empty {
+      $$ = new ExtDefList(-1);
     }
   ;
 ExtDef:
     Specifier ExtDecList SEMI {
+      $$ = new ExtDef($1, @1.first_line);
+      $$->push($2);
+      $$->push(new Terminal(*$3));
     }
   | Specifier SEMI {
+    $$ = new ExtDef($1, @1.first_line);
+    $$->push(new Terminal(*$2));
     }
   | Specifier FunDec CompSt {
+    $$ = new ExtDef($1, @1.first_line);
+    $$->push($2);
+    $$->push($3);
     }
   ;
 ExtDecList:
     VarDec {
+      $$ = new ExtDecList($1, @1.first_line);
     }
   | VarDec COMMA ExtDecList {
+    $$ = new ExtDecList($1, @1.first_line);
+    $$->push(new Terminal(*$2));
+    $$->push($3);
     }
   ;
 
@@ -278,10 +299,10 @@ Args:
 void yyerror(const char *s) {
   printf("Error type B at Line : ");
 }
+ast_Top *g_root; // Definition of variable (to match declaration earlier)
 
-ast_Top *parseAST(){
-    /* yyparse(); */
-    while(1)yylex();
-    ast_Top * res = nullptr;
-    return res;
+ast_Top *parseAST() {
+    g_root = new ast_Top;
+    yyparse();
+    return g_root;
 }
