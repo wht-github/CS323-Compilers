@@ -36,7 +36,7 @@ extern ast_Top *g_root; // A way of getting the AST out
 
 %nonassoc LOWER_ELSE
 %nonassoc <kw_value> ELSE
-
+%nonassoc UNKNOWN_LEXEME
 %right <kw_value> ASSIGN
 %left <kw_value> OR
 %left <kw_value> AND
@@ -87,6 +87,13 @@ ExtDef:
     $$->push($2);
     $$->push($3);
     }
+  | ExtDecList error {
+      $$ = new ExtDef($1, @1.first_line);
+    }
+  | Specifier ExtDecList error {
+      $$ = new ExtDef($1, @1.first_line);
+      $$->push($2);
+    }
   ;
 ExtDecList:
     VarDec {
@@ -106,16 +113,23 @@ ExtDecList:
  */
 Specifier:
     TYPE {
+      $$ = new Specifier(new ValType(*$1), @1.first_line);
     }
   | StructSpecifier {
+      $$ = new Specifier($1, @1.first_line);
     }
   ;
 StructSpecifier:
     STRUCT ID LC DefList RC {
-    }
-  | STRUCT ID LC DefList error {
+      $$ = new StructSpecifier(new Terminal(*$1), @1.first_line);
+      $$->push(new ValId(*$2));
+      $$->push(new Terminal(*$3));
+      $$->push($4);
+      $$->push(new Terminal(*$5));
     }
   | STRUCT ID {
+      $$ = new StructSpecifier(new Terminal(*$1), @1.first_line);
+      $$->push(new ValId(*$2));
     }
   ;
 
@@ -125,28 +139,57 @@ StructSpecifier:
  */
 VarDec:
     ID {
+      $$ = new VarDec(new ValId(*$1), @1.first_line);
     }
   | VarDec LB INT RB {
+      $$ = new VarDec($1, @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push(new ValInt($3));
+      $$->push(new Terminal(*$4));
+    }
+  | UNKNOWN_LEXEME error {
+      
     }
   ;
 FunDec:
     ID LP VarList RP {
-    }
-  | ID LP VarList error {
+      $$ = new FunDec(new ValId(*$1), @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
+      $$->push(new Terminal(*$4));
     }
   | ID LP RP {
+      $$ = new FunDec(new ValId(*$1), @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push(new Terminal(*$3));
+    }
+  | ID LP VarList error {
+      $$ = new FunDec(new ValId(*$1), @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
     }
   | ID LP error {
+      $$ = new FunDec(new ValId(*$1), @1.first_line);
+      $$->push(new Terminal(*$2));
     }
   ;
 VarList:
     ParamDec COMMA VarList {
+      $$ = new VarList($1, @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
     }
   | ParamDec {
+      $$ = new VarList($1, @1.first_line);
     }
   ;
 ParamDec:
     Specifier VarDec {
+      $$ = new ParamDec($1, @1.first_line);
+      $$->push($2);
+    }
+  | VarDec error {
+      $$ = new ParamDec($1, @1.first_line);
     }
   ;
 
@@ -157,64 +200,123 @@ ParamDec:
  */
 CompSt:
     LC DefList StmtList RC {
+      $$ = new CompSt(new Terminal(*$1), @1.first_line);
+      $$->push($2);
+      $$->push($3);
+      $$->push(new Terminal(*$4));
     }
   | LC DefList StmtList error {
+      $$ = new CompSt(new Terminal(*$1), @1.first_line);
+      $$->push($2);
+      $$->push($3);
     }
   ;
 StmtList:
     Stmt StmtList {
+      $$=new StmtList($1, @1.first_line);
+      $$->push($2);
     }
-  | %empty { }
+  | %empty { $$=new StmtList(-1);}
+  | Stmt Def StmtList error {
+      $$=new StmtList($1, @1.first_line);
+      $$->push($2);
+      $$->push($3);
+  }
   ;
 Stmt:
     Exp SEMI {
-
+      $$=new Stmt($1, @1.first_line);
+      $$->push(new Terminal(*$2));
+    }
+  | CompSt {
+      $$=new Stmt($1, @1.first_line);
+    }
+  | RETURN Exp SEMI {
+      $$=new Stmt(new Terminal(*$1), @1.first_line);
+      $$->push($2);
+      $$->push(new Terminal(*$3));
+    }
+  | IF LP Exp RP Stmt %prec LOWER_ELSE {
+      $$=new Stmt(new Terminal(*$1), @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
+      $$->push(new Terminal(*$4));
+      $$->push($5);
+    }
+  | IF LP Exp RP Stmt ELSE Stmt {
+      $$=new Stmt(new Terminal(*$1), @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
+      $$->push(new Terminal(*$4));
+      $$->push($5);
+      $$->push(new Terminal(*$6));
+      $$->push($7);
+    }
+  | WHILE LP Exp RP Stmt {
+      $$=new Stmt(new Terminal(*$1), @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
+      $$->push(new Terminal(*$4));
+      $$->push($5);
     }
   | Exp error {
     }
-  | CompSt {
-    }
-  | RETURN Exp SEMI {
-
-    }
   | RETURN Exp error {
     }
-  | IF LP Exp RP Stmt %prec LOWER_ELSE {
-
+  | RETURN UNKNOWN_LEXEME error {
     }
-  | IF LP Exp RP Stmt ELSE Stmt {
-
-    }
-  | WHILE LP Exp RP Stmt {
-
+  | RETURN UNKNOWN_LEXEME SEMI error {
     }
   ;
 
 /* Local definition: declaration and assignment of local variables */
 DefList:
     Def DefList {
-
+      $$ = new DefList($1, @1.first_line);
+      $$->push($2);
     }
-  | %empty  {  }
+  | %empty  { 
+    $$ = new DefList(-1);
+   }
   ;
 Def:
     Specifier DecList SEMI {
+      $$ = new Def($1, @1.first_line);
+      $$->push($2);
+      $$->push(new Terminal(*$3));
     }
   | Specifier DecList error {
+      $$ = new Def($1, @1.first_line);
+      $$->push($2);
     }
   ;
 DecList:
     Dec {
+      $$ = new DecList($1, @1.first_line);
     }
   | Dec COMMA DecList {
+      $$ = new DecList($1, @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
+    }
+  | Dec COMMA error {
+      $$ = new DecList($1, @1.first_line);
     }
   ;
 Dec:
     VarDec {
+      $$ = new Dec($1, @1.first_line);
     }
   | VarDec ASSIGN Exp {
+      $$ = new Dec($1, @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
+    }
+  | VarDec ASSIGN UNKNOWN_LEXEME error {
+      $$ = new Dec($1, @1.first_line);
     }
   | VarDec ASSIGN error {
+      $$ = new Dec($1, @1.first_line);
     }
   ;
 
@@ -225,72 +327,130 @@ Dec:
  */
 Exp:
     Exp ASSIGN Exp {
+      $$ = new Exp($1, @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
     }
   | Exp AND Exp {
+      $$ = new Exp($1, @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
     }
   | Exp OR Exp {
+      $$ = new Exp($1, @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
     }
   | Exp LT Exp {
+      $$ = new Exp($1, @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
     }
   | Exp LE Exp {
+      $$ = new Exp($1, @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
     }
   | Exp GT Exp {
+      $$ = new Exp($1, @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
     }
   | Exp GE Exp {
+      $$ = new Exp($1, @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
     }
   | Exp NE Exp {
+      $$ = new Exp($1, @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
     }
   | Exp EQ Exp {
+      $$ = new Exp($1, @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
     }
   | Exp PLUS Exp {
+      $$ = new Exp($1, @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
     }
   | Exp MINUS Exp {
+      $$ = new Exp($1, @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
     }
   | Exp MUL Exp {
-
+      $$ = new Exp($1, @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
     }
   | Exp DIV Exp {
-
+      $$ = new Exp($1, @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
     }
   | LP Exp RP {
- }
+      $$=new Exp(new Terminal(*$1), @1.first_line);
+      $$->push($2);
+      $$->push(new Terminal(*$3));
+    }
   | MINUS Exp {
-
+      $$=new Exp(new Terminal(*$1), @1.first_line);
+      $$->push($2);
     }
   | NOT Exp {
-
+      $$=new Exp(new Terminal(*$1), @1.first_line);
+      $$->push($2);
     }
   | ID LP Args RP {
-
+      $$ = new Exp(new ValId(*$1), @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
+      $$->push(new Terminal(*$4));
     }
   | ID LP RP {
-
+      $$ = new Exp(new ValChar(*$1), @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push(new Terminal(*$3));
     }
   | Exp LB Exp RB {
-
+      $$ = new Exp($1, @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
+      $$->push(new Terminal(*$4));
     }
   | Exp DOT ID {
-
+      $$ = new Exp($1, @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push(new ValId(*$3));
     }
   | ID {
-
+      $$ = new Exp(new ValId(*$1), @1.first_line);
     }
   | INT {
-
+      $$ = new Exp(new ValInt($1), @1.first_line);
     }
   | FLOAT {
-
+      $$ = new Exp(new ValFloat($1), @1.first_line);
     }
   | CHAR {
-
+      $$ = new Exp(new ValChar(*$1), @1.first_line);
     }
   ;
 Args:
     Exp COMMA Args {
-
+      $$ = new Args($1, @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push($3);
     }
   | Exp {
-
+      $$ = new Args($1, @1.first_line);
+    }
+  | Exp COMMA error {
+      $$ = new Args($1, @1.first_line);
+      $$->push(new Terminal(*$2));
     }
   ;
 

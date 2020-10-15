@@ -3,7 +3,7 @@ CC := g++ # this is the main compiler
 # $< is a macro that refers to the first dependency
 # $^ is a macro that refers to all dependencies
 # % is a macro to make a pattern that we want to watch in both the target and the dependency
-CFLAGS := -g -Wall -Wextra -Wpedantic -std=c++11 -DDEBUG
+CFLAGS := -g -Wall -Wextra -Wpedantic -std=c++11
 
 
 PARINC := -I ./include

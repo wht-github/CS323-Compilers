@@ -41,6 +41,9 @@ private:
     mutable std::vector<const Base *> list;
     int lineno;
 public:
+    StmtList(int _lineno) : lineno(_lineno)
+    {
+    }
     StmtList(const Base *_node, int _lineno) : lineno(_lineno)
     {
         list.push_back(_node);
@@ -48,6 +51,8 @@ public:
 
     virtual void print(int idt = 0) const
     {
+        if (lineno < 0)
+            return;
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "StmtList (" << lineno << ")" << std::endl;
