@@ -15,7 +15,10 @@ typedef struct _node *symtab[TABLE_SIZE];
 // ************************************************************
 
 symtab *symtab_init(){
+    int x;
+    if (x >= 1){
 
+    }
 }
 
 int symtab_insert(symtab *self, char *key, VAL_T value){
