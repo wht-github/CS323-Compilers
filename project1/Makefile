@@ -49,9 +49,7 @@ clean :
 	rm -f $(PARSRCDIR)/parser.output
 
 tests: 
-	./runtest.sh bin/splc class_test
-	./runtest.sh bin/splc test-ex
-	./runtest.sh bin/splc test
+	./runtest.sh bin/splc ./gradetest/selected-anonym
 	
 
 .PHONY : clean

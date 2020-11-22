@@ -1,0 +1,543 @@
+./runtest.sh bin/splc ./gradetest/selected-anonym
+./gradetest/selected-anonym/test_10a6fViD.spl
+./gradetest/selected-anonym/test_1ED2QFWr.spl
+./gradetest/selected-anonym/test_1HI34DyG.spl
+./gradetest/selected-anonym/test_1VJ0eYc4.spl
+./gradetest/selected-anonym/test_1VYBqMEu.spl
+./gradetest/selected-anonym/test_3N5QYpnh.spl
+./gradetest/selected-anonym/test_3Pjvg4ZW.spl
+./gradetest/selected-anonym/test_9mFjftiC.spl
+./gradetest/selected-anonym/test_9MwF8U4k.spl
+./gradetest/selected-anonym/test_BCS6d4xW.spl
+1,3d0
+< Error type B at Line 2: Missing closing brace '}'
+< Error type B at Line 3: Missing closing bracket ']'
+< Error type B at Line 8: Missing closing brace '}'
+./gradetest/selected-anonym/test_C3zfwUYm.spl
+./gradetest/selected-anonym/test_dCAGwiRh.spl
+./gradetest/selected-anonym/test_dgLu6Bop.spl
+1c1
+< Error type A at Line 3: Wrong Form "009"
+\ No newline at end of file
+---
+> Error type A at Line 3: unknown lexeme 009
+./gradetest/selected-anonym/test_DLr4tQz9.spl
+./gradetest/selected-anonym/test_doly7LsF.spl
+1,5c1
+< Error type B at Line 1: Missing closing parenthesis ')'
+< Error type B at Line 2: Missing closing parenthesis ')'
+< Error type B at Line 3: Missing closing parenthesis ')'
+< Error type B at Line 4: Missing closing parenthesis ')'
+< Error type B at Line 4: Missing closing parenthesis ')'
+---
+> Error type B at Line 1: Missing closing parenthesis ')'
+./gradetest/selected-anonym/test_Dz7asUKo.spl
+1d0
+< Error type B at line 1: Missing closing brace '}'
+./gradetest/selected-anonym/test_Ejd9vn3m.spl
+1d0
+< Error type B at Line 5: Missing closing parenthesis ')'
+./gradetest/selected-anonym/test_eVtK4Nxz.spl
+3d2
+< Error type B at Line 5: Missing closing parenthesis ')'
+./gradetest/selected-anonym/test_GawCMerp.spl
+./gradetest/selected-anonym/test_GfB6t8Va.spl
+1c1
+< Error type A at Line 9: unknown lexme '&'
+---
+> Error type A at Line 9: unknown lexeme &
+./gradetest/selected-anonym/test_IVWatdcR.spl
+./gradetest/selected-anonym/test_jMVK01rx.spl
+1c1
+< Error type B at line 1: syntax error, unexpected MUL, expecting ID
+\ No newline at end of file
+---
+> Error type B at Line 1: Missing closing parenthesis ')'
+./gradetest/selected-anonym/test_jNIaeU3z.spl
+1,221c1,2
+< Program (1)
+<   ExtDefList (1)
+<     ExtDef (1)
+<       Specifier (1)
+<         TYPE: int
+<       ExtDecList (1)
+<         VarDec (1)
+<           ID: a
+<         COMMA
+<         ExtDecList (1)
+<           VarDec (1)
+<             ID: b
+<           COMMA
+<           ExtDecList (1)
+<             VarDec (1)
+<               ID: c
+<       SEMI
+<     ExtDefList (2)
+<       ExtDef (2)
+<         Specifier (2)
+<           TYPE: float
+<         ExtDecList (2)
+<           VarDec (2)
+<             ID: m
+<           COMMA
+<           ExtDecList (2)
+<             VarDec (2)
+<               ID: n
+<         SEMI
+<       ExtDefList (3)
+<         ExtDef (3)
+<           Specifier (3)
+<             TYPE: int
+<           FunDec (3)
+<             ID: fibo
+<             LP
+<             VarList (3)
+<               ParamDec (3)
+<                 Specifier (3)
+<                   TYPE: int
+<                 VarDec (3)
+<                   ID: a
+<             RP
+<           CompSt (4)
+<             LC
+<             StmtList (5)
+<               Stmt (5)
+<                 IF
+<                 LP
+<                 Exp (5)
+<                   Exp (5)
+<                     Exp (5)
+<                       ID: a
+<                     EQ
+<                     Exp (5)
+<                       INT: 1
+<                   OR
+<                   Exp (5)
+<                     Exp (5)
+<                       ID: a
+<                     EQ
+<                     Exp (5)
+<                       INT: 2
+<                 RP
+<                 Stmt (5)
+<                   RETURN
+<                   Exp (5)
+<                     INT: 1
+<                   SEMI
+<               StmtList (6)
+<                 Stmt (6)
+<                   RETURN
+<                   Exp (6)
+<                     Exp (6)
+<                       ID: fibo
+<                       LP
+<                       Args (6)
+<                         Exp (6)
+<                           Exp (6)
+<                             ID: a
+<                           MINUS
+<                           Exp (6)
+<                             INT: 1
+<                       RP
+<                     PLUS
+<                     Exp (6)
+<                       ID: fibo
+<                       LP
+<                       Args (6)
+<                         Exp (6)
+<                           Exp (6)
+<                             ID: a
+<                           MINUS
+<                           Exp (6)
+<                             INT: 2
+<                       RP
+<                   SEMI
+<             RC
+<         ExtDefList (9)
+<           ExtDef (9)
+<             Specifier (9)
+<               TYPE: int
+<             FunDec (9)
+<               ID: main
+<               LP
+<               RP
+<             CompSt (10)
+<               LC
+<               DefList (11)
+<                 Def (11)
+<                   Specifier (11)
+<                     TYPE: int
+<                   DecList (11)
+<                     Dec (11)
+<                       VarDec (11)
+<                         ID: m
+<                     COMMA
+<                     DecList (11)
+<                       Dec (11)
+<                         VarDec (11)
+<                           ID: n
+<                       COMMA
+<                       DecList (11)
+<                         Dec (11)
+<                           VarDec (11)
+<                             ID: i
+<                   SEMI
+<               StmtList (12)
+<                 Stmt (12)
+<                   Exp (12)
+<                     Exp (12)
+<                       ID: m
+<                     ASSIGN
+<                     Exp (12)
+<                       ID: read
+<                       LP
+<                       RP
+<                   SEMI
+<                 StmtList (13)
+<                   Stmt (13)
+<                     Exp (13)
+<                       Exp (13)
+<                         ID: i
+<                       ASSIGN
+<                       Exp (13)
+<                         INT: 1
+<                     SEMI
+<                   StmtList (14)
+<                     Stmt (14)
+<                       WHILE
+<                       LP
+<                       Exp (14)
+<                         Exp (14)
+<                           ID: i
+<                         LE
+<                         Exp (14)
+<                           ID: m
+<                       RP
+<                       Stmt (15)
+<                         CompSt (15)
+<                           LC
+<                           StmtList (16)
+<                             Stmt (16)
+<                               IF
+<                               LP
+<                               Exp (16)
+<                                 Exp (16)
+<                                   ID: m
+<                                 GT
+<                                 Exp (16)
+<                                   ID: n
+<                               RP
+<                               Stmt (16)
+<                                 CompSt (16)
+<                                   LC
+<                                   StmtList (17)
+<                                     Stmt (17)
+<                                       Exp (17)
+<                                         Exp (17)
+<                                           ID: n
+<                                         ASSIGN
+<                                         Exp (17)
+<                                           ID: fibo
+<                                           LP
+<                                           Args (17)
+<                                             Exp (17)
+<                                               ID: i
+<                                           RP
+<                                       SEMI
+<                                     StmtList (18)
+<                                       Stmt (18)
+<                                         Exp (18)
+<                                           ID: write
+<                                           LP
+<                                           Args (18)
+<                                             Exp (18)
+<                                               ID: n
+<                                           RP
+<                                         SEMI
+<                                       StmtList (19)
+<                                         Stmt (19)
+<                                           Exp (19)
+<                                             Exp (19)
+<                                               ID: i
+<                                             ASSIGN
+<                                             Exp (19)
+<                                               Exp (19)
+<                                                 ID: i
+<                                               PLUS
+<                                               Exp (19)
+<                                                 INT: 1
+<                                           SEMI
+<                                   RC
+<                           RC
+<                     StmtList (22)
+<                       Stmt (22)
+<                         RETURN
+<                         Exp (22)
+<                           INT: 1
+<                         SEMI
+<               RC
+---
+> Error type B at Line 6: Missing closing parenthesis ')'
+> Error type B at Line 6: Missing semicolon ';'
+./gradetest/selected-anonym/test_k8gS0Hov.spl
+4a5
+> Error type B at Line 30: Missing semicolon ';'
+./gradetest/selected-anonym/test_KiSGZyxu.spl
+1c1,2
+< Error type A at Line 3: unknown lexeme '
+\ No newline at end of file
+---
+> Error type A at Line 3: unknown lexeme '
+> Error type B at Line 3: Missing semicolon ';'
+./gradetest/selected-anonym/test_l4fAamqI.spl
+./gradetest/selected-anonym/test_mOjFoPUV.spl
+./gradetest/selected-anonym/test_nHEZ9BCw.spl
+418,420c418
+<                       MINUS
+<                       Exp (36)
+<                         INT: 1
+---
+>                       INT: 4294967295
+./gradetest/selected-anonym/test_oWcQdv3L.spl
+1,2c1
+< Error type B at line 4 : Missing COMMA 
+< Error type B at line 5 : Missing RC
+---
+> Error type B at Line 4: Missing semicolon ';'
+./gradetest/selected-anonym/test_pCmS19rv.spl
+1,2c1
+< Error type A at Line 5: Mysterious lexeme ''\x3FFFF''
+< Error type A at Line 14: Mysterious lexeme '0x5gg'
+---
+> Error type A at Line 5: unknown lexeme '\x3FFFF'
+./gradetest/selected-anonym/test_PUyvXikH.spl
+./gradetest/selected-anonym/test_qasdQulr.spl
+1,189c1,7
+< Program (1)
+<   ExtDefList (1)
+<     ExtDef (1)
+<       Specifier (1)
+<         StructSpecifier (1)
+<           STRUCT
+<           ID: qwq
+<           LC
+<           DefList (2)
+<             Def (2)
+<               Specifier (2)
+<                 TYPE: int
+<               DecList (2)
+<                 Dec (2)
+<                   VarDec (2)
+<                     ID: a
+<               SEMI
+<             DefList (3)
+<               Def (3)
+<                 Specifier (3)
+<                   TYPE: float
+<                 DecList (3)
+<                   Dec (3)
+<                     VarDec (3)
+<                       ID: b
+<                 SEMI
+<               DefList (4)
+<                 Def (4)
+<                   Specifier (4)
+<                     TYPE: char
+<                   DecList (4)
+<                     Dec (4)
+<                       VarDec (4)
+<                         ID: c
+<                   SEMI
+<           RC
+<       SEMI
+<     ExtDefList (7)
+<       ExtDef (7)
+<         Specifier (7)
+<           TYPE: int
+<         FunDec (7)
+<           ID: test_11711918_r01
+<           LP
+<           RP
+<         CompSt (8)
+<           LC
+<           DefList (9)
+<             Def (9)
+<               Specifier (9)
+<                 TYPE: int
+<               DecList (9)
+<                 Dec (9)
+<                   VarDec (9)
+<                     ID: a
+<               SEMI
+<             DefList (10)
+<               Def (10)
+<                 Specifier (10)
+<                   TYPE: int
+<                 DecList (10)
+<                   Dec (10)
+<                     VarDec (10)
+<                       ID: a
+<                     ASSIGN
+<                     Exp (10)
+<                       INT: 1
+<                 SEMI
+<               DefList (11)
+<                 Def (11)
+<                   Specifier (11)
+<                     TYPE: int
+<                   DecList (11)
+<                     Dec (11)
+<                       VarDec (11)
+<                         ID: a
+<                       ASSIGN
+<                       Exp (11)
+<                         MINUS
+<                         Exp (11)
+<                           INT: 1
+<                   SEMI
+<                 DefList (12)
+<                   Def (12)
+<                     Specifier (12)
+<                       TYPE: int
+<                     DecList (12)
+<                       Dec (12)
+<                         VarDec (12)
+<                           ID: a
+<                         ASSIGN
+<                         Exp (12)
+<                           INT: 31
+<                     SEMI
+<                   DefList (13)
+<                     Def (13)
+<                       Specifier (13)
+<                         TYPE: int
+<                       DecList (13)
+<                         Dec (13)
+<                           VarDec (13)
+<                             ID: a
+<                           ASSIGN
+<                           Exp (13)
+<                             MINUS
+<                             Exp (13)
+<                               INT: 31
+<                       SEMI
+<                     DefList (15)
+<                       Def (15)
+<                         Specifier (15)
+<                           TYPE: float
+<                         DecList (15)
+<                           Dec (15)
+<                             VarDec (15)
+<                               ID: b
+<                         SEMI
+<                       DefList (16)
+<                         Def (16)
+<                           Specifier (16)
+<                             TYPE: float
+<                           DecList (16)
+<                             Dec (16)
+<                               VarDec (16)
+<                                 ID: f
+<                               ASSIGN
+<                               Exp (16)
+<                                 FLOAT: 1.0
+<                           SEMI
+<                         DefList (17)
+<                           Def (17)
+<                             Specifier (17)
+<                               TYPE: float
+<                             DecList (17)
+<                               Dec (17)
+<                                 VarDec (17)
+<                                   ID: f
+<                                 ASSIGN
+<                                 Exp (17)
+<                                   MINUS
+<                                   Exp (17)
+<                                     FLOAT: 1.0
+<                             SEMI
+<                           DefList (19)
+<                             Def (19)
+<                               Specifier (19)
+<                                 TYPE: char
+<                               DecList (19)
+<                                 Dec (19)
+<                                   VarDec (19)
+<                                     ID: ch
+<                               SEMI
+<                             DefList (20)
+<                               Def (20)
+<                                 Specifier (20)
+<                                   TYPE: char
+<                                 DecList (20)
+<                                   Dec (20)
+<                                     VarDec (20)
+<                                       ID: chh
+<                                     ASSIGN
+<                                     Exp (20)
+<                                       CHAR: '\x0c'
+<                                 SEMI
+<                               DefList (21)
+<                                 Def (21)
+<                                   Specifier (21)
+<                                     TYPE: char
+<                                   DecList (21)
+<                                     Dec (21)
+<                                       VarDec (21)
+<                                         ID: chh
+<                                       ASSIGN
+<                                       Exp (21)
+<                                         CHAR: '\x23'
+<                                   SEMI
+<                                 DefList (22)
+<                                   Def (22)
+<                                     Specifier (22)
+<                                       TYPE: char
+<                                     DecList (22)
+<                                       Dec (22)
+<                                         VarDec (22)
+<                                           ID: chh
+<                                         ASSIGN
+<                                         Exp (22)
+<                                           CHAR: '\n'
+<                                     SEMI
+<           RC
+---
+> Error type A at Line 20: unknown lexeme '\x0c'
+> Error type A at Line 21: unknown lexeme '\x23'
+> Error type A at Line 22: unknown lexeme '
+> Error type A at Line 22: unknown lexeme \
+> Error type B at Line 22: Missing semicolon ';'
+> Error type A at Line 22: unknown lexeme '
+> Error type B at Line 22: Missing semicolon ';'
+./gradetest/selected-anonym/test_qzZ9Rj8O.spl
+209c209
+<                                   FLOAT: 2.000000
+---
+>                                   FLOAT: 2
+251c251
+<                                 FLOAT: 231.229996
+---
+>                                 FLOAT: 231.23
+565c565
+<                                                   FLOAT: 3.000000
+---
+>                                                   FLOAT: 3
+577c577
+<                                                     FLOAT: 3.000000
+---
+>                                                     FLOAT: 3
+./gradetest/selected-anonym/test_SQzjh35g.spl
+./gradetest/selected-anonym/test_SXw4asLN.spl
+./gradetest/selected-anonym/test_V7neapD0.spl
+./gradetest/selected-anonym/test_W7m1edpM.spl
+./gradetest/selected-anonym/test_wBoxqOJQ.spl
+1,2d0
+< Error type B at Line 3: Missing exp when if
+< Error type A at Line 6: unknown lexeme 1_a
+./gradetest/selected-anonym/test_xkpDwGrq.spl
+1,3d0
+< Error type A at Line 3: unknown lexeme 2
+< Error type A at Line 3: unknown lexeme 1_right_id_2
+< Error type A at Line 4: unknown lexeme 3_wrong_id
+./gradetest/selected-anonym/test_znm0LKjy.spl

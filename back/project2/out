@@ -1,0 +1,866 @@
+Building sources...
+ mkdir -p ./build
+ g++  -g -Wall -Wextra -Wpedantic -std=c++17  -I ./include -c -o build/main.o src/main.cpp
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp: In member function ‘virtual Type* Base::visit(bool)’:
+./include/ast_base.hpp:58:30: warning: unused parameter ‘scope’ [-Wunused-parameter]
+     virtual Type *visit(bool scope)
+                         ~~~~~^~~~~
+In file included from ./include/ast.hpp:4,
+                 from src/main.cpp:1:
+./include/ast_dec.hpp: In member function ‘virtual Type* VarDec::visit()’:
+./include/ast_dec.hpp:48:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 ptr->type = list[0]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:4,
+                 from src/main.cpp:1:
+./include/ast_dec.hpp: In member function ‘virtual Type* FunDec::visit()’:
+./include/ast_dec.hpp:89:58: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 NTuple * tmp = (NTuple *)(list[2]->visit());
+                                                          ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:4,
+                 from src/main.cpp:1:
+./include/ast_dec.hpp:91:31: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<std::pair<std::__cxx11::basic_string<char>, Type*> >::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+                 for(int i=0; i< tmp->nargs.size(); i++) {
+                              ~^~~~~~~~~~~~~~~~~~~
+./include/ast_dec.hpp: In member function ‘virtual Type* VarList::visit()’:
+./include/ast_dec.hpp:128:43: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto tmp = list[0]->visit();
+                                           ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:4,
+                 from src/main.cpp:1:
+./include/ast_dec.hpp:133:57: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 NTuple *ptr = (NTuple *)(list[2]->visit());
+                                                         ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:4,
+                 from src/main.cpp:1:
+./include/ast_dec.hpp:134:43: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto tmp = list[0]->visit();
+                                           ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:4,
+                 from src/main.cpp:1:
+./include/ast_dec.hpp: In member function ‘virtual Type* ParamDec::visit()’:
+./include/ast_dec.hpp:168:36: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+         auto spec = list[0]->visit();
+                                    ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:4,
+                 from src/main.cpp:1:
+./include/ast_dec.hpp:169:35: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+         auto tmp = list[1]->visit();
+                                   ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:4,
+                 from src/main.cpp:1:
+./include/ast_dec.hpp: In member function ‘virtual Type* DefList::visit()’:
+./include/ast_dec.hpp:216:28: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+             list[0]->visit();
+                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:4,
+                 from src/main.cpp:1:
+./include/ast_dec.hpp:217:28: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+             list[1]->visit();
+                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:4,
+                 from src/main.cpp:1:
+./include/ast_dec.hpp: In member function ‘virtual Type* Def::visit()’:
+./include/ast_dec.hpp:245:36: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+         auto spec = list[0]->visit();
+                                    ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:4,
+                 from src/main.cpp:1:
+./include/ast_dec.hpp:246:46: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+         auto ptrs = (Tuple *)(list[1]->visit());
+                                              ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:4,
+                 from src/main.cpp:1:
+./include/ast_dec.hpp:247:27: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<Type*>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+         for (int i = 0; i < ptrs->args.size(); ++i) {
+                         ~~^~~~~~~~~~~~~~~~~~~
+./include/ast_dec.hpp: In member function ‘virtual Type* DecList::visit()’:
+./include/ast_dec.hpp:313:52: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 ptr->args.push_back(list[0]->visit());
+                                                    ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:4,
+                 from src/main.cpp:1:
+./include/ast_dec.hpp:317:54: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto ptr2 = (Tuple *)(list[2]->visit());
+                                                      ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:4,
+                 from src/main.cpp:1:
+./include/ast_dec.hpp:318:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto ptr1 = list[0]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:4,
+                 from src/main.cpp:1:
+./include/ast_dec.hpp: In member function ‘virtual Type* Dec::visit()’:
+./include/ast_dec.hpp:351:43: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto ptr = list[0]->visit();
+                                           ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:4,
+                 from src/main.cpp:1:
+./include/ast_dec.hpp:355:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto ptr1 = list[0]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:4,
+                 from src/main.cpp:1:
+./include/ast_dec.hpp:356:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto ptr2 = list[2]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp: In member function ‘virtual Type* Exp::visit()’:
+./include/ast_expression.hpp:72:47: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto exp_ptr = list[0]->visit();
+                                               ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:91:48: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto exp1_ptr = list[0]->visit();
+                                                ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:92:48: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto exp2_ptr = list[2]->visit();
+                                                ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:137:71: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                     if (type_equal(func_ptr->funcargs, list[2]->visit())) {
+                                                                       ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:149:43: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto ptr = list[1]->visit();
+                                           ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:166:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto ptr1 = list[0]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:167:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto ptr2 = list[2]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:184:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto ptr1 = list[0]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:185:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto ptr2 = list[2]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:202:43: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto ptr = list[1]->visit();
+                                           ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:213:39: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 return list[1]->visit();
+                                       ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:216:48: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto arg1_ptr = list[0]->visit();
+                                                ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:217:48: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto arg2_ptr = list[2]->visit();
+                                                ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:235:48: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto arg1_ptr = list[0]->visit();
+                                                ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:236:48: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto arg2_ptr = list[2]->visit();
+                                                ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:254:48: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto arg1_ptr = list[0]->visit();
+                                                ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:255:48: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto arg2_ptr = list[2]->visit();
+                                                ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:273:48: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto arg1_ptr = list[0]->visit();
+                                                ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:274:48: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto arg2_ptr = list[2]->visit();
+                                                ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:292:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto arg1 = list[0]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:293:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto arg2 = list[2]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:312:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto arg1 = list[0]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:313:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto arg2 = list[2]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:332:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto arg1 = list[0]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:333:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto arg2 = list[2]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:352:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto arg1 = list[0]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:353:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto arg2 = list[2]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:372:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto arg1 = list[0]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:373:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto arg2 = list[2]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:392:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto arg1 = list[0]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:393:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto arg2 = list[2]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:412:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto ptr1 = list[0]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:413:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto ptr2 = list[2]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp: In member function ‘virtual Type* Args::visit()’:
+./include/ast_expression.hpp:468:52: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 ptr->args.push_back(list[0]->visit());
+                                                    ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:472:55: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 Tuple *ptr = (Tuple *)(list[2]->visit());
+                                                       ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:5,
+                 from src/main.cpp:1:
+./include/ast_expression.hpp:473:52: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 ptr->args.push_back(list[0]->visit());
+                                                    ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:6,
+                 from src/main.cpp:1:
+./include/ast_external.hpp: In member function ‘virtual Type* ExtDefList::visit()’:
+./include/ast_external.hpp:43:32: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 list[0]->visit();
+                                ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:6,
+                 from src/main.cpp:1:
+./include/ast_external.hpp:44:39: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 return list[1]->visit();
+                                       ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:6,
+                 from src/main.cpp:1:
+./include/ast_external.hpp: In member function ‘virtual Type* ExtDecList::visit()’:
+./include/ast_external.hpp:76:52: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 ptr->args.push_back(list[0]->visit());
+                                                    ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:6,
+                 from src/main.cpp:1:
+./include/ast_external.hpp:80:54: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto ptr2 = (Tuple *)(list[2]->visit());
+                                                      ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:6,
+                 from src/main.cpp:1:
+./include/ast_external.hpp:81:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto ptr1 = list[0]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:6,
+                 from src/main.cpp:1:
+./include/ast_external.hpp: In member function ‘virtual Type* ExtDef::visit()’:
+./include/ast_external.hpp:113:43: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto ptr = list[0]->visit();
+                                           ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:6,
+                 from src/main.cpp:1:
+./include/ast_external.hpp:128:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto spec = list[0]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:6,
+                 from src/main.cpp:1:
+./include/ast_external.hpp:129:54: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto ptrs = (Tuple *)(list[1]->visit());
+                                                      ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:6,
+                 from src/main.cpp:1:
+./include/ast_external.hpp:130:35: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<Type*>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+                 for (int i = 0; i < ptrs->args.size(); ++i) {
+                                 ~~^~~~~~~~~~~~~~~~~~~
+./include/ast_external.hpp:160:44: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto spec = list[0]->visit();
+                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:6,
+                 from src/main.cpp:1:
+./include/ast_external.hpp:162:43: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto fun = list[1]->visit();
+                                           ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:6,
+                 from src/main.cpp:1:
+./include/ast_external.hpp:164:60: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 Tuple *ret = (Tuple *)(list[2]->visit(false));
+                                                            ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:58:19: note:   in call to ‘virtual Type* Base::visit(bool)’
+     virtual Type *visit(bool scope)
+                   ^~~~~
+In file included from ./include/ast.hpp:7,
+                 from src/main.cpp:1:
+./include/ast_program.hpp: In member function ‘virtual Type* AstProgram::visit()’:
+./include/ast_program.hpp:38:24: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+         list[0]->visit();
+                        ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:8,
+                 from src/main.cpp:1:
+./include/ast_specifier.hpp: In member function ‘virtual Type* Specifier::visit()’:
+./include/ast_specifier.hpp:52:39: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 return list[0]->visit();
+                                       ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:8,
+                 from src/main.cpp:1:
+./include/ast_specifier.hpp: In member function ‘virtual Type* StructSpecifier::visit()’:
+./include/ast_specifier.hpp:94:32: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 list[3]->visit();
+                                ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:9,
+                 from src/main.cpp:1:
+./include/ast_stmt.hpp: In member function ‘virtual Type* CompSt::visit()’:
+./include/ast_stmt.hpp:35:24: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+         list[1]->visit();
+                        ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:9,
+                 from src/main.cpp:1:
+./include/ast_stmt.hpp:36:35: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+         auto tmp = list[2]->visit();
+                                   ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:9,
+                 from src/main.cpp:1:
+./include/ast_stmt.hpp: In member function ‘virtual Type* CompSt::visit(bool)’:
+./include/ast_stmt.hpp:44:24: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+         list[1]->visit();
+                        ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:9,
+                 from src/main.cpp:1:
+./include/ast_stmt.hpp:45:35: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+         auto tmp = list[2]->visit();
+                                   ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:9,
+                 from src/main.cpp:1:
+./include/ast_stmt.hpp:43:30: warning: unused parameter ‘scope’ [-Wunused-parameter]
+     virtual Type *visit(bool scope) {
+                         ~~~~~^~~~~
+./include/ast_stmt.hpp: In member function ‘virtual Type* StmtList::visit()’:
+./include/ast_stmt.hpp:84:43: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto tmp = list[0]->visit();
+                                           ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:9,
+                 from src/main.cpp:1:
+./include/ast_stmt.hpp:85:53: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto ptr = (Tuple *)(list[1]->visit());
+                                                     ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:9,
+                 from src/main.cpp:1:
+./include/ast_stmt.hpp: In member function ‘virtual Type* Stmt::visit()’:
+./include/ast_stmt.hpp:124:39: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 return list[0]->visit();
+                                       ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:9,
+                 from src/main.cpp:1:
+./include/ast_stmt.hpp:127:32: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 list[0]->visit();
+                                ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:9,
+                 from src/main.cpp:1:
+./include/ast_stmt.hpp:131:39: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 return list[1]->visit();
+                                       ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:9,
+                 from src/main.cpp:1:
+./include/ast_stmt.hpp:134:32: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 list[2]->visit();
+                                ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:9,
+                 from src/main.cpp:1:
+./include/ast_stmt.hpp:135:39: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 return list[4]->visit();
+                                       ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:9,
+                 from src/main.cpp:1:
+./include/ast_stmt.hpp:138:32: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 list[2]->visit();
+                                ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:9,
+                 from src/main.cpp:1:
+./include/ast_stmt.hpp:139:42: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto t1 = list[4]->visit();
+                                          ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from ./include/ast.hpp:9,
+                 from src/main.cpp:1:
+./include/ast_stmt.hpp:140:42: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+                 auto t2 = list[6]->visit();
+                                          ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+In file included from src/main.cpp:1:
+./include/ast.hpp: In member function ‘void ast_Top::visit()’:
+./include/ast.hpp:26:27: error: passing ‘const Base’ as ‘this’ argument discards qualifiers [-fpermissive]
+             vec[i]->visit();
+                           ^
+In file included from ./include/ast.hpp:3,
+                 from src/main.cpp:1:
+./include/ast_base.hpp:53:19: note:   in call to ‘virtual Type* Base::visit()’
+     virtual Type *visit()
+                   ^~~~~
+src/main.cpp: In function ‘int main(int, char**)’:
+src/main.cpp:9:14: warning: unused parameter ‘argc’ [-Wunused-parameter]
+ int main(int argc, char *argv[]) {
+          ~~~~^~~~
+make: *** [Makefile:32: build/main.o] Error 1

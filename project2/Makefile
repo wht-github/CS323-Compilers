@@ -3,7 +3,7 @@ CC := g++ # this is the main compiler
 # $< is a macro that refers to the first dependency
 # $^ is a macro that refers to all dependencies
 # % is a macro to make a pattern that we want to watch in both the target and the dependency
-CFLAGS := -g -Wall -Wextra -Wpedantic -std=c++11
+CFLAGS := -g -Wall -Wextra -Wpedantic -std=c++17 -Wno-unused-variable -Wno-unused-parameter
 
 
 PARINC := -I ./include
@@ -49,8 +49,6 @@ clean :
 	rm -f $(PARSRCDIR)/parser.output
 
 tests: 
-	./runtest.sh bin/splc class_test
-	./runtest.sh bin/splc test-ex
 	./runtest.sh bin/splc test
 	
 

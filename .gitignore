@@ -14,6 +14,7 @@ syntax.tab.[hc]
 bin
 !*/class_test/*.out
 .vscode/
+.VSCodeCounter/
 project1/bin/
 project1/build
 project1/test_ans

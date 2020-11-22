@@ -1,0 +1,7 @@
+
+int test_2_r02(int x)
+{
+  int k = 4+x;
+  int r = add(k);
+  return r;
+}
