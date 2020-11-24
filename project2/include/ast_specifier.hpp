@@ -11,15 +11,15 @@
 
 class Specifier : public Base {
    private:
-    mutable std::vector<const Base *> list;
+    mutable std::vector< Base *> list;
     int lineno;
 
    public:
-    Specifier(const Base *_node, int _lineno) : lineno(_lineno) {
+    Specifier( Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0) const {
+    virtual void print(int idt = 0)  {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "Specifier (" << lineno << ")" << std::endl;
@@ -28,7 +28,7 @@ class Specifier : public Base {
         }
     }
 
-    virtual void push(const Base *_node) const {
+    virtual void push( Base *_node)  {
         list.push_back(_node);
     }
     virtual Type *visit() {
@@ -56,15 +56,15 @@ class Specifier : public Base {
 };
 class StructSpecifier : public Base {
    private:
-    mutable std::vector<const Base *> list;
+    mutable std::vector< Base *> list;
     int lineno;
 
    public:
-    StructSpecifier(const Base *_node, int _lineno) : lineno(_lineno) {
+    StructSpecifier( Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0) const {
+    virtual void print(int idt = 0)  {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "StructSpecifier (" << lineno << ")" << std::endl;
@@ -73,7 +73,7 @@ class StructSpecifier : public Base {
         }
     }
 
-    virtual void push(const Base *_node) const {
+    virtual void push( Base *_node)  {
         list.push_back(_node);
     }
     virtual Type *visit() {

@@ -12,15 +12,15 @@
 using std::find_if;
 class Exp : public Base {
    private:
-    mutable std::vector<const Base *> list;
+    mutable std::vector< Base *> list;
     int lineno;
 
    public:
-    Exp(const Base *_node, int _lineno) : lineno(_lineno) {
+    Exp( Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0) const {
+    virtual void print(int idt = 0)  {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "Exp (" << lineno << ")" << std::endl;
@@ -29,7 +29,7 @@ class Exp : public Base {
         }
     }
 
-    virtual void push(const Base *_node) const {
+    virtual void push( Base *_node)  {
         list.push_back(_node);
     }
     virtual Type *visit() {
@@ -440,15 +440,15 @@ class Exp : public Base {
 };
 class Args : public Base {
    private:
-    mutable std::vector<const Base *> list;
+    mutable std::vector< Base *> list;
     int lineno;
 
    public:
-    Args(const Base *_node, int _lineno) : lineno(_lineno) {
+    Args( Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0) const {
+    virtual void print(int idt = 0)  {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "Args (" << lineno << ")" << std::endl;
@@ -457,7 +457,7 @@ class Args : public Base {
         }
     }
 
-    virtual void push(const Base *_node) const {
+    virtual void push( Base *_node)  {
         list.push_back(_node);
     }
 

@@ -9,16 +9,16 @@
 class AstProgram : public Base
 {
 private:
-    mutable std::vector<const Base *> list;
+    mutable std::vector< Base *> list;
     int lineno;
 
 public:
-    AstProgram(const Base *_node, int _lineno) : lineno(_lineno)
+    AstProgram( Base *_node, int _lineno) : lineno(_lineno)
     {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0) const
+    virtual void print(int idt = 0) 
     {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
@@ -29,7 +29,7 @@ public:
         }
     }
 
-    virtual void push(const Base *_node) const
+    virtual void push( Base *_node) 
     {
         list.push_back(_node);
     }

@@ -10,15 +10,15 @@
 
 class CompSt : public Base {
    private:
-    mutable std::vector<const Base *> list;
+    mutable std::vector< Base *> list;
     int lineno;
 
    public:
-    CompSt(const Base *_node, int _lineno) : lineno(_lineno) {
+    CompSt( Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0) const {
+    virtual void print(int idt = 0)  {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "CompSt (" << lineno << ")" << std::endl;
@@ -27,7 +27,7 @@ class CompSt : public Base {
         }
     }
 
-    virtual void push(const Base *_node) const {
+    virtual void push( Base *_node)  {
         list.push_back(_node);
     }
     virtual Type *visit() {
@@ -51,17 +51,17 @@ class CompSt : public Base {
 };
 class StmtList : public Base {
    private:
-    mutable std::vector<const Base *> list;
+    mutable std::vector< Base *> list;
     int lineno;
 
    public:
     StmtList(int _lineno) : lineno(_lineno) {
     }
-    StmtList(const Base *_node, int _lineno) : lineno(_lineno) {
+    StmtList( Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0) const {
+    virtual void print(int idt = 0)  {
         if (lineno < 0)
             return;
         for (int i = 0; i < idt; i++)
@@ -72,7 +72,7 @@ class StmtList : public Base {
         }
     }
 
-    virtual void push(const Base *_node) const {
+    virtual void push( Base *_node)  {
         list.push_back(_node);
     }
     virtual Type *visit() {
@@ -98,15 +98,15 @@ class StmtList : public Base {
 
 class Stmt : public Base {
    private:
-    mutable std::vector<const Base *> list;
+    mutable std::vector< Base *> list;
     int lineno;
 
    public:
-    Stmt(const Base *_node, int _lineno) : lineno(_lineno) {
+    Stmt( Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0) const {
+    virtual void print(int idt = 0)  {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "Stmt (" << lineno << ")" << std::endl;
@@ -115,7 +115,7 @@ class Stmt : public Base {
         }
     }
 
-    virtual void push(const Base *_node) const {
+    virtual void push( Base *_node)  {
         list.push_back(_node);
     }
     virtual Type *visit() {

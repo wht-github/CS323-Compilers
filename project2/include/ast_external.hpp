@@ -10,17 +10,17 @@
 
 class ExtDefList : public Base {
    private:
-    mutable std::vector<const Base *> list;
+    mutable std::vector< Base *> list;
     int lineno;
 
    public:
     ExtDefList(int _lineno) : lineno(_lineno) {
     }
-    ExtDefList(const Base *_node, int _lineno) : lineno(_lineno) {
+    ExtDefList( Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0) const {
+    virtual void print(int idt = 0)  {
         if (lineno < 0)
             return;
         for (int i = 0; i < idt; i++)
@@ -31,7 +31,7 @@ class ExtDefList : public Base {
         }
     }
 
-    virtual void push(const Base *_node) const {
+    virtual void push( Base *_node)  {
         list.push_back(_node);
     }
     virtual Type* visit(){
@@ -49,15 +49,15 @@ class ExtDefList : public Base {
 };
 class ExtDecList : public Base {
    private:
-    mutable std::vector<const Base *> list;
+    mutable std::vector< Base *> list;
     int lineno;
 
    public:
-    ExtDecList(const Base *_node, int _lineno) : lineno(_lineno) {
+    ExtDecList( Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0) const {
+    virtual void print(int idt = 0)  {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "ExtDecList (" << lineno << ")" << std::endl;
@@ -66,7 +66,7 @@ class ExtDecList : public Base {
         }
     }
 
-    virtual void push(const Base *_node) const {
+    virtual void push( Base *_node)  {
         list.push_back(_node);
     }
     virtual Type *visit() {
@@ -87,15 +87,15 @@ class ExtDecList : public Base {
 };
 class ExtDef : public Base {
    private:
-    mutable std::vector<const Base *> list;
+    mutable std::vector< Base *> list;
     int lineno;
 
    public:
-    ExtDef(const Base *_node, int _lineno) : lineno(_lineno) {
+    ExtDef( Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0) const {
+    virtual void print(int idt = 0)  {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "ExtDef (" << lineno << ")" << std::endl;
@@ -104,7 +104,7 @@ class ExtDef : public Base {
         }
     }
 
-    virtual void push(const Base *_node) const {
+    virtual void push( Base *_node)  {
         list.push_back(_node);
     }
     virtual Type *visit() {
@@ -127,7 +127,7 @@ class ExtDef : public Base {
             case Attr::GLOBALVAR: {
                 auto spec = list[0]->visit();
                 auto ptrs = (Tuple *)(list[1]->visit());
-                for (int i = 0; i < ptrs->args.size(); ++i) {
+                for (size_t i = 0; i < ptrs->args.size(); ++i) {
                     auto tmp = ptrs->args[i];
                     bool flag_insert = true;
                     if (stable.lookup_top(tmp->varname.value()).has_value()) {
@@ -163,6 +163,7 @@ class ExtDef : public Base {
                 ((Function *)fun)->return_type = spec;
                 Tuple *ret = (Tuple *)(list[2]->visit(false));
                 stable.pop();
+                
                 stable.insert(fun->name.value(), fun);
                 if (ret == nullptr) {
                     prterr(8, lineno, "the function’s return value type mismatches the declared type");

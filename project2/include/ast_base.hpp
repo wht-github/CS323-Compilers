@@ -43,12 +43,12 @@ class Base
 {
 public:
     Attr attr = Attr::INVALID;
-    const int indent = 2;
+     int indent = 2;
     virtual ~Base() {}
 
-    virtual void print(int idt = 0) const = 0;
-    virtual void push(const Base *_var) const = 0;
-    virtual Attr get_attr() const { return attr; }
+    virtual void print(int idt = 0)  = 0;
+    virtual void push( Base *_var)  = 0;
+    virtual Attr get_attr()  { return attr; }
     virtual void set_attr(Attr attr) { this->attr = attr; };
     virtual Type *visit() 
     {

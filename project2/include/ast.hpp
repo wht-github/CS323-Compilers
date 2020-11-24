@@ -18,7 +18,7 @@ class ast_Top {
         }
     }
 
-    void push(const Base *stmnt) {
+    void push( Base *stmnt) {
         vec.push_back(stmnt);
     }
     void visit() {
@@ -28,7 +28,7 @@ class ast_Top {
     }
 
    private:
-    std::vector<const Base *> vec;
+    std::vector< Base *> vec;
 };
 ast_Top *parseAST();
 void sematicscheck(ast_Top *&root);

@@ -5,7 +5,10 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
-using std::string, std::vector, std::optional, std::unordered_map;
+using std::optional;
+using std::string;
+using std::unordered_map;
+using std::vector;
 enum class Primitive { INT,
                        FLOAT,
                        CHAR,
@@ -24,10 +27,10 @@ enum class LRV { L,
 class Type {
    public:
     bool initialized = false;
-    optional<string> name;  //for struct types
-    optional<string> varname; // for check
+    optional<string> name;     //for struct types
+    optional<string> varname;  // for check
     optional<Primitive> primitive = {};
-    Type* type_to_cal =  nullptr;
+    Type *type_to_cal = nullptr;
     Category category;
     LRV lrv = LRV::R;
 };
@@ -35,7 +38,7 @@ class Array : public Type {
    public:
     optional<Primitive> primitive = {};
     Category category = Category::ARRAY;
-    unsigned int size;
+    unsigned int size=0;;
     Type *type = nullptr;
 };
 
@@ -52,18 +55,18 @@ class Tuple : public Type {
 };
 class NTuple : public Type {
    public:
-    vector<std::pair<string,Type *> > nargs;
+    vector<std::pair<string, Type *> > nargs;
     Category category = Category::NTUPLE;
 };
 class Function : public Type {
    public:
     optional<Primitive> primitive = {};
     Category category = Category::FUNCTION;
-    Type *return_type;
+    Type *return_type=nullptr;
     Tuple *funcargs = nullptr;
 };
 
-static bool type_equal(const Type *a, const Type *b) {
+static bool type_equal(Type *a, Type *b) {
     if (a == nullptr && b == nullptr) return true;
     if (a == nullptr || b == nullptr) return false;
     if (a->category == b->category) {
@@ -77,7 +80,7 @@ static bool type_equal(const Type *a, const Type *b) {
             case Category::ARRAY: {
                 auto arr_a = (Array *)a;
                 auto arr_b = (Array *)b;
-                if(arr_a->size != arr_b->size) {
+                if (arr_a->size != arr_b->size) {
                     return false;
                 }
                 return type_equal(arr_a->type, arr_b->type);
@@ -112,17 +115,16 @@ static bool type_equal(const Type *a, const Type *b) {
         return false;
     }
 }
-static bool tuple_equal_to(Type * base, Type * other){
-    if(other->category == Category::TUPLE){
-        
-        auto tmp = (Tuple*) other;
-        for (size_t i = 0; i < tmp->args.size(); ++i){
-            if(!tuple_equal_to(base, tmp->args[i])){
+static bool tuple_equal_to(Type *base, Type *other) {
+    if (other->category == Category::TUPLE) {
+        auto tmp = (Tuple *)other;
+        for (size_t i = 0; i < tmp->args.size(); ++i) {
+            if (!tuple_equal_to(base, tmp->args[i])) {
                 return false;
             }
         }
         return true;
-    }else{
+    } else {
         return type_equal(base, other);
     }
 }

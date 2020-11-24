@@ -11,18 +11,18 @@
 
 class VarDec : public Base {
    private:
-    mutable std::vector<const Base *> list;
+    mutable std::vector< Base *> list;
     int lineno;
 
    public:
     VarDec(int _lineno) : lineno(_lineno) {
     }
 
-    VarDec(const Base *_node, int _lineno) : lineno(_lineno) {
+    VarDec( Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0) const {
+    virtual void print(int idt = 0)  {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "VarDec (" << lineno << ")" << std::endl;
@@ -31,7 +31,7 @@ class VarDec : public Base {
         }
     }
 
-    virtual void push(const Base *_node) const {
+    virtual void push( Base *_node)  {
         list.push_back(_node);
     }
     virtual Type *visit() {
@@ -56,15 +56,15 @@ class VarDec : public Base {
 };
 class FunDec : public Base {
    private:
-    mutable std::vector<const Base *> list;
+    mutable std::vector< Base *> list;
     int lineno;
 
    public:
-    FunDec(const Base *_node, int _lineno) : lineno(_lineno) {
+    FunDec( Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0) const {
+    virtual void print(int idt = 0)  {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "FunDec (" << lineno << ")" << std::endl;
@@ -73,7 +73,7 @@ class FunDec : public Base {
         }
     }
 
-    virtual void push(const Base *_node) const {
+    virtual void push( Base *_node)  {
         list.push_back(_node);
     }
     virtual Type *visit() {
@@ -83,12 +83,13 @@ class FunDec : public Base {
                 ptr->name = ((ValId *)list[0])->val;
                 return ptr;
             }
-            case 5: {
+            case 4: {
                 auto ptr = new Function();
                 ptr->name = ((ValId *)list[0])->val;
+
                 NTuple * tmp = (NTuple *)(list[2]->visit());
                 Tuple * tmpargs = new Tuple();
-                for(int i=0; i< tmp->nargs.size(); i++) {
+                for(size_t i=0; i< tmp->nargs.size(); i++) {
                     stable.insert(tmp->nargs[i].first,tmp->nargs[i].second);
                     tmpargs->args.push_back(tmp->nargs[i].second);
                 }
@@ -101,15 +102,15 @@ class FunDec : public Base {
 
 class VarList : public Base {
    private:
-    mutable std::vector<const Base *> list;
+    mutable std::vector< Base *> list;
     int lineno;
 
    public:
-    VarList(const Base *_node, int _lineno) : lineno(_lineno) {
+    VarList( Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0) const {
+    virtual void print(int idt = 0)  {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "VarList (" << lineno << ")" << std::endl;
@@ -118,7 +119,7 @@ class VarList : public Base {
         }
     }
 
-    virtual void push(const Base *_node) const {
+    virtual void push( Base *_node)  {
         list.push_back(_node);
     }
     virtual Type *visit() {
@@ -144,15 +145,15 @@ class VarList : public Base {
 
 class ParamDec : public Base {
    private:
-    mutable std::vector<const Base *> list;
+    mutable std::vector< Base *> list;
     int lineno;
 
    public:
-    ParamDec(const Base *_node, int _lineno) : lineno(_lineno) {
+    ParamDec( Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0) const {
+    virtual void print(int idt = 0)  {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "ParamDec (" << lineno << ")" << std::endl;
@@ -161,7 +162,7 @@ class ParamDec : public Base {
         }
     }
 
-    virtual void push(const Base *_node) const {
+    virtual void push( Base *_node)  {
         list.push_back(_node);
     }
     virtual Type *visit() {
@@ -185,18 +186,18 @@ class ParamDec : public Base {
 ////////////////////////////////////////////////////////////////////////////////
 class DefList : public Base {
    private:
-    mutable std::vector<const Base *> list;
+    mutable std::vector< Base *> list;
     int lineno;
 
    public:
     DefList(int _lineno) : lineno(_lineno) {
     }
 
-    DefList(const Base *_node, int _lineno) : lineno(_lineno) {
+    DefList( Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0) const {
+    virtual void print(int idt = 0)  {
         if (lineno < 0)
             return;
         for (int i = 0; i < idt; i++)
@@ -207,7 +208,7 @@ class DefList : public Base {
         }
     }
 
-    virtual void push(const Base *_node) const {
+    virtual void push( Base *_node)  {
         list.push_back(_node);
     }
     virtual Type *visit() {
@@ -221,15 +222,15 @@ class DefList : public Base {
 };
 class Def : public Base {
    private:
-    mutable std::vector<const Base *> list;
+    mutable std::vector< Base *> list;
     int lineno;
 
    public:
-    Def(const Base *_node, int _lineno) : lineno(_lineno) {
+    Def( Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0) const {
+    virtual void print(int idt = 0)  {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "Def (" << lineno << ")" << std::endl;
@@ -238,13 +239,13 @@ class Def : public Base {
         }
     }
 
-    virtual void push(const Base *_node) const {
+    virtual void push( Base *_node)  {
         list.push_back(_node);
     }
     virtual Type *visit() {
         auto spec = list[0]->visit();
         auto ptrs = (Tuple *)(list[1]->visit());
-        for (int i = 0; i < ptrs->args.size(); ++i) {
+        for (size_t i = 0; i < ptrs->args.size(); ++i) {
             auto tmp = ptrs->args[i];
             bool flag = true;
             bool flag_insert = true;
@@ -286,15 +287,15 @@ class Def : public Base {
 
 class DecList : public Base {
    private:
-    mutable std::vector<const Base *> list;
+    mutable std::vector< Base *> list;
     int lineno;
 
    public:
-    DecList(const Base *_node, int _lineno) : lineno(_lineno) {
+    DecList( Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0) const {
+    virtual void print(int idt = 0)  {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "DecList (" << lineno << ")" << std::endl;
@@ -303,7 +304,7 @@ class DecList : public Base {
         }
     }
 
-    virtual void push(const Base *_node) const {
+    virtual void push( Base *_node)  {
         list.push_back(_node);
     }
     virtual Type *visit() {
@@ -325,15 +326,15 @@ class DecList : public Base {
 
 class Dec : public Base {
    private:
-    mutable std::vector<const Base *> list;
+    mutable std::vector< Base *> list;
     int lineno;
 
    public:
-    Dec(const Base *_node, int _lineno) : lineno(_lineno) {
+    Dec( Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0) const {
+    virtual void print(int idt = 0)  {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "Dec (" << lineno << ")" << std::endl;
@@ -342,7 +343,7 @@ class Dec : public Base {
         }
     }
 
-    virtual void push(const Base *_node) const {
+    virtual void push( Base *_node)  {
         list.push_back(_node);
     }
     virtual Type *visit() {
