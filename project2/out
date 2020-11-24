@@ -1,0 +1,91 @@
+./runtest.sh bin/splc test
+test/test_2_o01.spl
+test/test_2_r01.spl
+1a2
+> Error type 5 at Line 5: unmatching types on both sides of assignment operator (=)
+test/test_2_r02.spl
+1d0
+< Error type 2 at Line 8: undefined function: add
+test/test_2_r03.spl
+1c1
+< Error type 3 at Line 6: redefine variable: ttt
+---
+> Error type 3 at Line 6: variable is redefined in the same scope
+test/test_2_r04.spl
+1d0
+< Error type 4 at Line 7: redefine function: compare
+test/test_2_r05.spl
+1c1,2
+< Error type 5 at Line 6: unmatching type on both sides of assignment
+---
+> Error type 5 at Line 5: unmatching types on both sides of assignment operator (=)
+> Error type 7 at Line 6: unmatching operands
+test/test_2_r06.spl
+1d0
+< Error type 6 at Line 6: left side in assignment is rvalue
+test/test_2_r07.spl
+1,2c1,5
+< Error type 7 at Line 10: binary operation on non-number variables
+< Error type 5 at Line 10: unmatching type on both sides of assignment
+---
+> Error type 5 at Line 3: unmatching types on both sides of assignment operator (=)
+> Error type 5 at Line 4: unmatching types on both sides of assignment operator (=)
+> Error type 5 at Line 3: unmatching types on both sides of assignment operator (=)
+> Error type 5 at Line 4: unmatching types on both sides of assignment operator (=)
+> not implemented
+test/test_2_r08.spl
+1d0
+< Error type 8 at Line 21: incompatiable return type
+test/test_2_r09.spl
+1d0
+< Error type 9 at Line 12: invalid argument number for compare, expect 2, got 3
+test/test_2_r10.spl
+1c1,4
+< Error type 10 at Line 17: indexing on non-array variable
+---
+> Error type B at Line 17: Missing closing bracket ']'
+> Error type B at Line 17: Missing semicolon ';'
+> Error type B at Line 7: Missing closing curly bracket '}'
+> err
+test/test_2_r11.spl
+1d0
+< Error type 11 at Line 16: invoking non-function variable: compare2
+test/test_2_r12.spl
+1,2c1,3
+< Error type 12 at Line 15: indexing by non-integer
+< Error type 5 at Line 15: unmatching type on both sides of assignment
+---
+> Error type 5 at Line 3: unmatching types on both sides of assignment operator (=)
+> Error type 5 at Line 4: unmatching types on both sides of assignment operator (=)
+> Error type 10 at Line 9: applying indexing operator ([...]) on non-array type variables
+test/test_2_r13.spl
+1,2c1,5
+< Error type 13 at Line 19: accessing with non-struct variable
+< Error type 13 at Line 19: accessing with non-struct variable
+---
+> Error type 5 at Line 3: unmatching types on both sides of assignment operator (=)
+> Error type 5 at Line 4: unmatching types on both sides of assignment operator (=)
+> Error type 5 at Line 3: unmatching types on both sides of assignment operator (=)
+> Error type 5 at Line 4: unmatching types on both sides of assignment operator (=)
+> not implemented
+test/test_2_r14.spl
+1,4c1,5
+< Error type 14 at Line 10: no such member: age
+< Error type 5 at Line 10: unmatching type on both sides of assignment
+< Error type 14 at Line 12: no such member: weight
+< Error type 5 at Line 12: unmatching type on both sides of assignment
+---
+> Error type 5 at Line 3: unmatching types on both sides of assignment operator (=)
+> Error type 5 at Line 4: unmatching types on both sides of assignment operator (=)
+> Error type 5 at Line 3: unmatching types on both sides of assignment operator (=)
+> Error type 5 at Line 4: unmatching types on both sides of assignment operator (=)
+> not implemented
+test/test_2_r15.spl
+1c1,5
+< Error type 15 at Line 6: redefine struct: Child
+---
+> Error type 5 at Line 3: unmatching types on both sides of assignment operator (=)
+> Error type 5 at Line 4: unmatching types on both sides of assignment operator (=)
+> Error type 5 at Line 3: unmatching types on both sides of assignment operator (=)
+> Error type 5 at Line 4: unmatching types on both sides of assignment operator (=)
+> not implemented
