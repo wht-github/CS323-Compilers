@@ -4,25 +4,26 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include"symboltable.hpp"
+
 #include "ast.hpp"
 #include "ast_terminal.hpp"
+#include "symboltable.hpp"
 // Declaration that holds a list of declarations
 
 class VarDec : public Base {
    private:
-    mutable std::vector< Base *> list;
+    mutable std::vector<Base *> list;
     int lineno;
 
    public:
     VarDec(int _lineno) : lineno(_lineno) {
     }
 
-    VarDec( Base *_node, int _lineno) : lineno(_lineno) {
+    VarDec(Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0)  {
+    virtual void print(int idt = 0) {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "VarDec (" << lineno << ")" << std::endl;
@@ -31,7 +32,7 @@ class VarDec : public Base {
         }
     }
 
-    virtual void push( Base *_node)  {
+    virtual void push(Base *_node) {
         list.push_back(_node);
     }
     virtual Type *visit() {
@@ -50,21 +51,22 @@ class VarDec : public Base {
                 return ptr;
             }
             default:
+                prterr(-1, lineno, "VarDec");
                 exit(1);
         }
     }
 };
 class FunDec : public Base {
    private:
-    mutable std::vector< Base *> list;
+    mutable std::vector<Base *> list;
     int lineno;
 
    public:
-    FunDec( Base *_node, int _lineno) : lineno(_lineno) {
+    FunDec(Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0)  {
+    virtual void print(int idt = 0) {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "FunDec (" << lineno << ")" << std::endl;
@@ -73,7 +75,7 @@ class FunDec : public Base {
         }
     }
 
-    virtual void push( Base *_node)  {
+    virtual void push(Base *_node) {
         list.push_back(_node);
     }
     virtual Type *visit() {
@@ -87,14 +89,18 @@ class FunDec : public Base {
                 auto ptr = new Function();
                 ptr->name = ((ValId *)list[0])->val;
 
-                NTuple * tmp = (NTuple *)(list[2]->visit());
-                Tuple * tmpargs = new Tuple();
-                for(size_t i=0; i< tmp->nargs.size(); i++) {
-                    stable.insert(tmp->nargs[i].first,tmp->nargs[i].second);
+                NTuple *tmp = (NTuple *)(list[2]->visit());
+                Tuple *tmpargs = new Tuple();
+                for (size_t i = 0; i < tmp->nargs.size(); i++) {
+                    stable.insert(tmp->nargs[i].first, tmp->nargs[i].second);
                     tmpargs->args.push_back(tmp->nargs[i].second);
                 }
                 ptr->funcargs = tmpargs;
                 return ptr;
+            }
+            default: {
+                prterr(-1, lineno, "FunDec");
+                exit(1);
             }
         }
     }
@@ -102,15 +108,15 @@ class FunDec : public Base {
 
 class VarList : public Base {
    private:
-    mutable std::vector< Base *> list;
+    mutable std::vector<Base *> list;
     int lineno;
 
    public:
-    VarList( Base *_node, int _lineno) : lineno(_lineno) {
+    VarList(Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0)  {
+    virtual void print(int idt = 0) {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "VarList (" << lineno << ")" << std::endl;
@@ -119,7 +125,7 @@ class VarList : public Base {
         }
     }
 
-    virtual void push( Base *_node)  {
+    virtual void push(Base *_node) {
         list.push_back(_node);
     }
     virtual Type *visit() {
@@ -127,16 +133,17 @@ class VarList : public Base {
             case 1: {
                 NTuple *ptr = new NTuple();
                 auto tmp = list[0]->visit();
-                ptr->nargs.push_back(std::make_pair(tmp->varname.value(),tmp));
+                ptr->nargs.push_back(std::make_pair(tmp->varname.value(), tmp));
                 return ptr;
             }
             case 3: {
                 NTuple *ptr = (NTuple *)(list[2]->visit());
                 auto tmp = list[0]->visit();
-                ptr->nargs.push_back(std::make_pair(tmp->varname.value(),tmp));
+                ptr->nargs.push_back(std::make_pair(tmp->varname.value(), tmp));
                 return ptr;
             }
             default: {
+                prterr(-1, lineno, "VarList");
                 exit(1);
             }
         }
@@ -145,15 +152,15 @@ class VarList : public Base {
 
 class ParamDec : public Base {
    private:
-    mutable std::vector< Base *> list;
+    mutable std::vector<Base *> list;
     int lineno;
 
    public:
-    ParamDec( Base *_node, int _lineno) : lineno(_lineno) {
+    ParamDec(Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0)  {
+    virtual void print(int idt = 0) {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "ParamDec (" << lineno << ")" << std::endl;
@@ -162,19 +169,19 @@ class ParamDec : public Base {
         }
     }
 
-    virtual void push( Base *_node)  {
+    virtual void push(Base *_node) {
         list.push_back(_node);
     }
     virtual Type *visit() {
         auto spec = list[0]->visit();
         auto tmp = list[1]->visit();
         //type checking
-        if (tmp->category == Category::UNCERTAIN) {
+        if (tmp->cat_getter() == Category::UNCERTAIN) {
             spec->varname = tmp->varname.value();
             return spec;
         } else {
             auto ttmp = tmp;
-            while (((Array *)ttmp)->type->category == Category::ARRAY) {
+            while (((Array *)ttmp)->type->cat_getter() == Category::ARRAY) {
                 ttmp = ((Array *)ttmp)->type;
             }
             ((Array *)ttmp)->type = spec;
@@ -186,18 +193,18 @@ class ParamDec : public Base {
 ////////////////////////////////////////////////////////////////////////////////
 class DefList : public Base {
    private:
-    mutable std::vector< Base *> list;
+    mutable std::vector<Base *> list;
     int lineno;
 
    public:
     DefList(int _lineno) : lineno(_lineno) {
     }
 
-    DefList( Base *_node, int _lineno) : lineno(_lineno) {
+    DefList(Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0)  {
+    virtual void print(int idt = 0) {
         if (lineno < 0)
             return;
         for (int i = 0; i < idt; i++)
@@ -208,7 +215,7 @@ class DefList : public Base {
         }
     }
 
-    virtual void push( Base *_node)  {
+    virtual void push(Base *_node) {
         list.push_back(_node);
     }
     virtual Type *visit() {
@@ -222,15 +229,15 @@ class DefList : public Base {
 };
 class Def : public Base {
    private:
-    mutable std::vector< Base *> list;
+    mutable std::vector<Base *> list;
     int lineno;
 
    public:
-    Def( Base *_node, int _lineno) : lineno(_lineno) {
+    Def(Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0)  {
+    virtual void print(int idt = 0) {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "Def (" << lineno << ")" << std::endl;
@@ -239,7 +246,7 @@ class Def : public Base {
         }
     }
 
-    virtual void push( Base *_node)  {
+    virtual void push(Base *_node) {
         list.push_back(_node);
     }
     virtual Type *visit() {
@@ -255,20 +262,20 @@ class Def : public Base {
                 flag_insert = false;
             }
             //type checking
-            if (tmp->category == Category::UNCERTAIN) {
-                if (!type_equal(tmp->type_to_cal, spec)) {
+            if (tmp->cat_getter() == Category::UNCERTAIN) {
+                if (tmp->type_to_cal.has_value() && !type_equal(tmp->type_to_cal.value(), spec)) {
                     flag = false;
-                } else{
+                } else {
                     stable.insert(tmp->varname.value(), spec);
-                    flag_insert=false;
+                    flag_insert = false;
                 }
             } else {
                 auto ttmp = tmp;
-                while (((Array *)ttmp)->type->category == Category::ARRAY) {
+                while (((Array *)ttmp)->type->cat_getter() == Category::ARRAY) {
                     ttmp = ((Array *)ttmp)->type;
                 }
                 ((Array *)ttmp)->type = spec;
-                if (!type_equal(tmp, tmp->type_to_cal)) {
+                if (tmp->type_to_cal.has_value() && !type_equal(tmp, tmp->type_to_cal.value())) {
                     flag = false;
                 }
             }
@@ -287,15 +294,15 @@ class Def : public Base {
 
 class DecList : public Base {
    private:
-    mutable std::vector< Base *> list;
+    mutable std::vector<Base *> list;
     int lineno;
 
    public:
-    DecList( Base *_node, int _lineno) : lineno(_lineno) {
+    DecList(Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0)  {
+    virtual void print(int idt = 0) {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "DecList (" << lineno << ")" << std::endl;
@@ -304,7 +311,7 @@ class DecList : public Base {
         }
     }
 
-    virtual void push( Base *_node)  {
+    virtual void push(Base *_node) {
         list.push_back(_node);
     }
     virtual Type *visit() {
@@ -326,15 +333,15 @@ class DecList : public Base {
 
 class Dec : public Base {
    private:
-    mutable std::vector< Base *> list;
+    mutable std::vector<Base *> list;
     int lineno;
 
    public:
-    Dec( Base *_node, int _lineno) : lineno(_lineno) {
+    Dec(Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0)  {
+    virtual void print(int idt = 0) {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "Dec (" << lineno << ")" << std::endl;
@@ -343,7 +350,7 @@ class Dec : public Base {
         }
     }
 
-    virtual void push( Base *_node)  {
+    virtual void push(Base *_node) {
         list.push_back(_node);
     }
     virtual Type *visit() {
@@ -355,8 +362,8 @@ class Dec : public Base {
             case 3: {
                 auto ptr1 = list[0]->visit();
                 auto ptr2 = list[2]->visit();
-
-                ptr1->type_to_cal = ptr2;
+                if (ptr2 != nullptr)
+                    ptr1->type_to_cal = ptr2;
                 return ptr1;
             }
         }

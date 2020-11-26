@@ -31,5 +31,6 @@ class ast_Top {
     std::vector< Base *> vec;
 };
 ast_Top *parseAST();
+
 void sematicscheck(ast_Top *&root);
 #endif

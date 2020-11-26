@@ -10,15 +10,15 @@
 
 class CompSt : public Base {
    private:
-    mutable std::vector< Base *> list;
+    mutable std::vector<Base *> list;
     int lineno;
 
    public:
-    CompSt( Base *_node, int _lineno) : lineno(_lineno) {
+    CompSt(Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0)  {
+    virtual void print(int idt = 0) {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "CompSt (" << lineno << ")" << std::endl;
@@ -27,14 +27,16 @@ class CompSt : public Base {
         }
     }
 
-    virtual void push( Base *_node)  {
+    virtual void push(Base *_node) {
         list.push_back(_node);
     }
     virtual Type *visit() {
         stable.push();
         list[1]->visit();
         auto tmp = list[2]->visit();
+
         stable.pop();
+        if (tmp == nullptr) return nullptr;
         if (((Tuple *)tmp)->args.size() == 0) {
             return nullptr;
         }
@@ -42,8 +44,8 @@ class CompSt : public Base {
     }
     virtual Type *visit(bool scope) {
         list[1]->visit();
-        auto tmp = list[2]->visit();
-        if (((Tuple *)tmp)->args.size() == 0) {
+        auto tmp = (Tuple *)(list[2]->visit());
+        if (tmp == nullptr || tmp->args.size() == 0) {
             return nullptr;
         }
         return tmp;
@@ -51,17 +53,17 @@ class CompSt : public Base {
 };
 class StmtList : public Base {
    private:
-    mutable std::vector< Base *> list;
+    mutable std::vector<Base *> list;
     int lineno;
 
    public:
     StmtList(int _lineno) : lineno(_lineno) {
     }
-    StmtList( Base *_node, int _lineno) : lineno(_lineno) {
+    StmtList(Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0)  {
+    virtual void print(int idt = 0) {
         if (lineno < 0)
             return;
         for (int i = 0; i < idt; i++)
@@ -72,25 +74,31 @@ class StmtList : public Base {
         }
     }
 
-    virtual void push( Base *_node)  {
+    virtual void push(Base *_node) {
         list.push_back(_node);
     }
     virtual Type *visit() {
         switch (list.size()) {
-            case 1: {
+            case 0: {
                 return nullptr;
             }
             case 2: {
                 auto tmp = list[0]->visit();
                 auto ptr = (Tuple *)(list[1]->visit());
-                if (ptr == nullptr) {
-                    ptr = new Tuple();
+                if(tmp == nullptr) {
+                    return ptr;
                 }
-                if (tmp != nullptr)
+                if (ptr == nullptr ) {
+                    ptr = new Tuple();
                     ptr->args.push_back(tmp);
+                    return ptr;
+                }
+                ptr->args.push_back(tmp);
                 return ptr;
+                    
             }
             default:
+                prterr(list.size(), lineno, "StmtList");
                 exit(1);
         }
     }
@@ -98,15 +106,15 @@ class StmtList : public Base {
 
 class Stmt : public Base {
    private:
-    mutable std::vector< Base *> list;
+    mutable std::vector<Base *> list;
     int lineno;
 
    public:
-    Stmt( Base *_node, int _lineno) : lineno(_lineno) {
+    Stmt(Base *_node, int _lineno) : lineno(_lineno) {
         list.push_back(_node);
     }
 
-    virtual void print(int idt = 0)  {
+    virtual void print(int idt = 0) {
         for (int i = 0; i < idt; i++)
             std::cout << " ";
         std::cout << "Stmt (" << lineno << ")" << std::endl;
@@ -115,7 +123,7 @@ class Stmt : public Base {
         }
     }
 
-    virtual void push( Base *_node)  {
+    virtual void push(Base *_node) {
         list.push_back(_node);
     }
     virtual Type *visit() {

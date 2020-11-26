@@ -30,16 +30,22 @@ class Type {
     optional<string> name;     //for struct types
     optional<string> varname;  // for check
     optional<Primitive> primitive = {};
-    Type *type_to_cal = nullptr;
+    optional<Type *> type_to_cal = {};
     Category category;
     LRV lrv = LRV::R;
+    // virtual bool initialize_getter(){return initialized;}
+    virtual Category cat_getter() { return category; }
+    virtual void cat_setter(Category c) { this->category = c; }
 };
 class Array : public Type {
    public:
     optional<Primitive> primitive = {};
     Category category = Category::ARRAY;
-    unsigned int size=0;;
+    unsigned int size = 0;
+    ;
     Type *type = nullptr;
+    virtual Category cat_getter() { return category; }
+    virtual void cat_setter(Category c) { this->category = c; }
 };
 
 class Struct : public Type {
@@ -47,32 +53,44 @@ class Struct : public Type {
     optional<Primitive> primitive = {};
     Category category = Category::STRUCT;
     unordered_map<string, Type *> fields;
+    virtual Category cat_getter() { return category; }
+    virtual void cat_setter(Category c) { this->category = c; }
 };
 class Tuple : public Type {
    public:
     vector<Type *> args;
     Category category = Category::TUPLE;
+    virtual Category cat_getter() { return category; }
+    virtual void cat_setter(Category c) { this->category = c; }
 };
 class NTuple : public Type {
    public:
     vector<std::pair<string, Type *> > nargs;
     Category category = Category::NTUPLE;
+    virtual Category cat_getter() { return category; }
+    virtual void cat_setter(Category c) { this->category = c; }
 };
 class Function : public Type {
    public:
     optional<Primitive> primitive = {};
     Category category = Category::FUNCTION;
-    Type *return_type=nullptr;
+    Type *return_type = nullptr;
     Tuple *funcargs = nullptr;
+    virtual Category cat_getter() { return category; }
+    virtual void cat_setter(Category c) { this->category = c; }
 };
 
 static bool type_equal(Type *a, Type *b) {
     if (a == nullptr && b == nullptr) return true;
     if (a == nullptr || b == nullptr) return false;
-    if (a->category == b->category) {
-        switch (a->category) {
+    if (a->cat_getter() == b->cat_getter()) {
+        switch (a->cat_getter()) {
             case Category::PRIMITIVE: {
-                return a->primitive.value() == b->primitive.value();
+                if (a->primitive.has_value() && b->primitive.has_value()) {
+                    return a->primitive.value() == b->primitive.value();
+                } else {
+                    return false;
+                }
             }
             case Category::STRUCT: {
                 return a->name.value() == b->name.value();
@@ -116,7 +134,7 @@ static bool type_equal(Type *a, Type *b) {
     }
 }
 static bool tuple_equal_to(Type *base, Type *other) {
-    if (other->category == Category::TUPLE) {
+    if (other->cat_getter() == Category::TUPLE) {
         auto tmp = (Tuple *)other;
         for (size_t i = 0; i < tmp->args.size(); ++i) {
             if (!tuple_equal_to(base, tmp->args[i])) {

@@ -1,19 +1,24 @@
+#include <iostream>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "ast.hpp"
 #include "spltype.hpp"
 #include "symboltable.hpp"
-#include <iostream>
-#include <vector>
-#include <string>
-#include <unordered_map>
 using namespace std;
+SymbolTable stable = SymbolTable();
 int main(int argc, char *argv[]) {
     stdin = fopen(argv[1], "r");
     ast_Top *ast = parseAST();
-    stable = SymbolTable();
+
     stable.push();
-    ast->visit();
-    
-    
+    ast->print();
+
+    // ast->visit();
+    // Type* ptr = new Function();
+    // cout << (Category::FUNCTION == ptr->cat_getter())  << (true==false)<< endl;
+
     // Type * a = new Struct();
     // string x = "Fasdf";
     // stable.insert(x,a);
@@ -22,5 +27,4 @@ int main(int argc, char *argv[]) {
     // string d = "f";
     // cout << (c==d) << endl;
     return 0;
-
 }

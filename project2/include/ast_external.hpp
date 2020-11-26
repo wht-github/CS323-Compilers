@@ -36,14 +36,15 @@ class ExtDefList : public Base {
     }
     virtual Type* visit(){
         switch(list.size()) {
-            case 1:{
+            case 0:{
                 return nullptr;
             }
             case 2:{
                 list[0]->visit();
-                return list[1]->visit();
+                list[1]->visit();
+                return nullptr;
             }
-            default:exit(1);
+            default:prterr(-1,lineno,"ExtDefList");exit(1);
         }
     }
 };
@@ -111,16 +112,18 @@ class ExtDef : public Base {
         switch (attr) {
             case Attr::GLOBALSTRUCT: {
                 auto ptr = list[0]->visit();
-                if (ptr->category == Category::PRIMITIVE) {
-                    // return ptr;
-                } else if (ptr->category == Category::STRUCT) {
+                if (ptr->cat_getter() == Category::PRIMITIVE) {
+                    return nullptr;
+                } else if (ptr->cat_getter() == Category::STRUCT) {
                     if (!stable.lookup_top(ptr->name.value()).has_value()) {
                         stable.insert(ptr->name.value(), ptr);
+                        return nullptr;
                     } else {
                         prterr(15, lineno, "redefine the same structure type");
+                        return nullptr;
                     }
                 } else {
-                    prterr(-1, lineno, "?????");
+                    prterr(-1, lineno, "ExtDef:Struct");
                     exit(1);
                 }
             }
@@ -136,14 +139,14 @@ class ExtDef : public Base {
                         flag_insert = false;
                     }
                     //type checking
-                    if (tmp->category == Category::UNCERTAIN) {
+                    if (tmp->cat_getter() == Category::UNCERTAIN) {
                         if (flag_insert) {
                             stable.insert(tmp->varname.value(), spec);
                             flag_insert = false;
                         }
                     } else {
                         auto ttmp = tmp;
-                        while (((Array *)ttmp)->type->category == Category::ARRAY) {
+                        while (((Array *)ttmp)->type->cat_getter() == Category::ARRAY) {
                             ttmp = ((Array *)ttmp)->type;
                         }
 
@@ -160,10 +163,16 @@ class ExtDef : public Base {
                 auto spec = list[0]->visit();
                 stable.push();
                 auto fun = list[1]->visit();
+
                 ((Function *)fun)->return_type = spec;
+                stable.insert(fun->name.value(), fun);
                 Tuple *ret = (Tuple *)(list[2]->visit(false));
                 stable.pop();
-                
+                // std::cout << fun->name.value()<< std::endl;
+                if (stable.lookup(fun->name.value()).has_value()){
+                    prterr(4,lineno,"function is redefined");
+                    return nullptr;
+                }
                 stable.insert(fun->name.value(), fun);
                 if (ret == nullptr) {
                     prterr(8, lineno, "the function’s return value type mismatches the declared type");
@@ -176,6 +185,7 @@ class ExtDef : public Base {
                 return fun;
             }
             default:
+            prterr(-1,lineno,"ExtDef:??");
                 exit(1);
         }
     }

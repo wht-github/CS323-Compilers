@@ -1,1 +1,1 @@
-Error type 11 at Line 16: invoking non-function variable: compare2
+Error type 11 at Line 16: applying function invocation operator (foo(...)) on non-function names

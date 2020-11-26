@@ -450,7 +450,7 @@ Exp:
       $$->set_attr(Attr::FUNCCALL);
     }
   | ID LP RP {
-      $$ = new Exp(new ValChar(*$1), @1.first_line);
+      $$ = new Exp(new ValId(*$1), @1.first_line);
       $$->push(new Terminal(*$2));
       $$->push(new Terminal(*$3));
       $$->set_attr(Attr::FUNCCALL);

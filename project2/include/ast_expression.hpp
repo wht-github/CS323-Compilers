@@ -73,7 +73,7 @@ class Exp : public Base {
                 if (exp_ptr == nullptr) {
                     // error handle in list[0]->visit()
                     return nullptr;
-                } else if (exp_ptr->category != Category::STRUCT) {
+                } else if (exp_ptr->cat_getter() != Category::STRUCT) {
                     //TODO: handle error
                     prterr(13, lineno, "accessing member of non-structure variable");
                     return nullptr;
@@ -94,7 +94,7 @@ class Exp : public Base {
                     //TODO: handle error
                     return nullptr;
                 }
-                if (exp1_ptr->category != Category::ARRAY) {
+                if (exp1_ptr->cat_getter() != Category::ARRAY) {
                     //TODO: handle error
                     prterr(10, lineno, "applying indexing operator ([...]) on non-array type variables");
                     return nullptr;
@@ -109,14 +109,14 @@ class Exp : public Base {
                 return ((Array *)exp1_ptr)->type;
             };
             case Attr::FUNCCALL: {
-                std::cout << "function" << std::endl;
+                // std::cerr << "function" << std::endl;
                 Type *ptr = stable.lookup(((ValId *)list[0])->val).value_or(nullptr);
                 if (ptr == nullptr) {
                     // TODO: handle error, no val
                     prterr(2, lineno, "function is invoked without definition");
                     return nullptr;
                 }
-                if (ptr->category != Category::FUNCTION) {
+                if (ptr->cat_getter() != Category::FUNCTION) {
                     // TODO: handle error, not function
                     prterr(11, lineno, "applying function invocation operator (foo(...)) on non-function names");
                     return nullptr;
@@ -141,7 +141,7 @@ class Exp : public Base {
                         prterr(9, lineno, "the function’s return value type mismatches the declared type");
                     }
                 } else {
-                    std::cerr << "??????" << std::endl;
+                    prterr(-1,lineno,"ExpFunC");
                     exit(1);
                 }
             }
@@ -205,8 +205,11 @@ class Exp : public Base {
                     return nullptr;
                 }
                 if (ptr->primitive.has_value() && (ptr->primitive.value() == Primitive::INT || ptr->primitive.value() == Primitive::FLOAT)) {
-                    prterr(7, lineno, "unmatching operands");
+                    
                     return ptr;
+                } else {
+                    prterr(7, lineno, "unmatching operands");
+                    return nullptr;
                 }
             }
             case Attr::PARENTHESIS: {
@@ -428,7 +431,7 @@ class Exp : public Base {
                     return ptr1;
                 } else {
                     //TODO: handle error
-                    prterr(7, lineno, "unmatching operands");
+                    prterr(5, lineno, "unmatching types on both sides of assignment operator (=)");
                     return nullptr;
                 }
             }
@@ -474,6 +477,7 @@ class Args : public Base {
                 return ptr;
             }
             default: {
+                prterr(-1,lineno,"Args");
                 exit(1);
             }
         }

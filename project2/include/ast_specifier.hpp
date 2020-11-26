@@ -44,6 +44,7 @@ class Specifier : public Base {
                 } else if (val == "char") {
                     ptr->primitive = Primitive::CHAR;
                 } else {
+                    prterr(-1,lineno,"Unknown Primitives");
                     exit(-1);
                 }
                 return ptr;
@@ -92,7 +93,7 @@ class StructSpecifier : public Base {
                 ptr->name = ((ValId *)list[1])->val;
                 stable.push();
                 list[3]->visit();
-                ptr->fields.insert(stable.get_top().begin(), stable.get_top().end());
+                ptr->fields.insert(stable.get_top()->begin(), stable.get_top()->end());
                 stable.pop();
                 return ptr;
             }
