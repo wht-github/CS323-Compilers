@@ -48,8 +48,11 @@ clean :
 	rm -f $(PARSRCDIR)/parser.tab.hpp
 	rm -f $(PARSRCDIR)/parser.output
 
-tests: 
-	./runtest.sh bin/splc test
-	
+testp2 : 
+	./runtest.sh bin/splc test2
+
+testp1 : 
+	./runtest.sh bin/splc test1/selected-anonym
+
 
 .PHONY : clean

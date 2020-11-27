@@ -139,6 +139,10 @@ StructSpecifier:
       $$ = new StructSpecifier(new Terminal(*$1), @1.first_line);
       $$->push(new ValId(*$2));
     }
+  | STRUCT ID LC DefList error{
+      $$ = new StructSpecifier(new Terminal(*$1), @1.first_line);
+      std::cerr << "Error type B at Line "<< @$.first_line << ": Missing closing curly bracket '}'" << std::endl;
+  }
   ;
 
 /**
@@ -154,6 +158,13 @@ VarDec:
       $$->push(new Terminal(*$2));
       $$->push(new ValInt($3));
       $$->push(new Terminal(*$4));
+    }
+  | VarDec LB INT error {
+      $$ = new VarDec($1, @1.first_line);
+      $$->push(new Terminal(*$2));
+      $$->push(new ValInt($3));
+      std::cerr << "Error type B at Line "<< @$.first_line << ": Missing closing bracket ']'" << std::endl;
+
     }
   | UNKNOWN_LEXIUM error {
       $$ = new VarDec(@1.first_line);
@@ -306,7 +317,7 @@ Def:
       $$->push(new Terminal(*$3));
     }
   | Specifier DecList error {
-    std::cerr << "Error type B at Line "<< @$.first_line << ": Missing semicolon ';'" << std::endl;
+      std::cerr << "Error type B at Line "<< @$.first_line << ": Missing semicolon ';'" << std::endl;
       $$ = new Def($1, @1.first_line);
       $$->push($2);
     }
@@ -525,7 +536,7 @@ ast_Top *parseAST() {
     
     yyparse();
     if (s_error == 1) {
-      std::cout << "err" << std::endl;
+      /* std::cout << "err" << std::endl; */
       exit(1);
     }
     return g_root;
