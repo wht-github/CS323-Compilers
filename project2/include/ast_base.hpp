@@ -57,7 +57,7 @@ public:
     };
     virtual Type *visit(bool scope)
     {
-        logger("not implemented");
+        logger("not implemented scope visit");
         return nullptr;
     };
 };

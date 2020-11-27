@@ -125,21 +125,22 @@ class Exp : public Base {
                     auto func_ptr = (Function *)ptr;
                     if (func_ptr->funcargs == nullptr) {
                         // ID LP RP
-                        return func_ptr->return_type;
+                        
                     } else {
                         // TODO: handle error, absent args
-                        prterr(9, lineno, "the function’s return value type mismatches the declared type");
-                        return nullptr;
+                        prterr(9, lineno, "the function’s arguments mismatch the declared parameters");
                     }
+                    return func_ptr->return_type;
 
                 } else if (list.size() == 4) {
                     auto func_ptr = (Function *)ptr;
                     if (type_equal(func_ptr->funcargs, list[2]->visit())) {
                         // Initial?
-                        return func_ptr->return_type;
+                        
                     } else {
-                        prterr(9, lineno, "the function’s return value type mismatches the declared type");
+                        prterr(9, lineno, "the function’s arguments mismatch the declared parameters");
                     }
+                    return func_ptr->return_type;
                 } else {
                     prterr(-1,lineno,"ExpFunC");
                     exit(1);
@@ -421,6 +422,10 @@ class Exp : public Base {
                         prterr(6, lineno, "rvalue on the left side of assignment operator");
                         return nullptr;
                     }
+                    if(ptr1!=nullptr) {
+                        return ptr1;
+                    }
+                    return nullptr;
                 }
                 if (ptr1->lrv == LRV::R) {
                     prterr(6, lineno, "rvalue on the left side of assignment operator");

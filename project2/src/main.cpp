@@ -13,9 +13,9 @@ int main(int argc, char *argv[]) {
     ast_Top *ast = parseAST();
 
     stable.push();
-    ast->print();
+    // ast->print();
 
-    // ast->visit();
+    ast->visit();
     // Type* ptr = new Function();
     // cout << (Category::FUNCTION == ptr->cat_getter())  << (true==false)<< endl;
 

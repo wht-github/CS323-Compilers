@@ -29,7 +29,7 @@ SINGLE_LINE_COMMENT "//".*
 
 INT  0|[1-9][0-9]{0,9}|0[xX][1-9a-fA-F][0-9a-fA-F]*
 FLOAT -?[0-9]*\.[0-9]+
-CHAR \'[a-zA-Z]\'|\'\\x[0-9a-fA-F]*\'|\'
+CHAR \'[a-zA-Z]\'|\'\\x[0-9a-fA-F]*\'
 ID  [a-zA-Z][a-zA-Z0-9_]*|_[a-zA-Z0-9_]*
 TYPE     int|float|char
 STRUCT   "struct"
