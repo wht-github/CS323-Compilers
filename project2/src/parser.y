@@ -536,7 +536,7 @@ ast_Top *parseAST() {
     
     yyparse();
     if (s_error == 1) {
-      /* std::cout << "err" << std::endl; */
+      std::cout << "Parser err" << std::endl;
       exit(1);
     }
     return g_root;

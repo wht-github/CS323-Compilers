@@ -53,6 +53,6 @@ testp2 :
 
 testp1 : 
 	./runtest.sh bin/splc test1/selected-anonym
-
-
+mytest : 
+	./runtest.sh bin/splc test
 .PHONY : clean

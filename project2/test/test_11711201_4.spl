@@ -3,6 +3,6 @@ struct A{
 };
 int main(){
     struct A x;
-    x.b.c = 1;
-    return x.b.c;
+    x.b.c = 1.0;
+    return x.b;
 }

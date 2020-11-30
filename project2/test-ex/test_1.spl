@@ -1,0 +1,11 @@
+// support same name in different scope
+int main(){
+  int a;
+  {
+    int a;
+    {
+      int a;
+    }
+  }
+  return main();
+}
