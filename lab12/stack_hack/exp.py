@@ -15,7 +15,7 @@ addr = int(p.recvline(), 16)
 p.info('local buf address: 0x%x', addr)
 
 # p.recvuntil('name? ')
-payload = '# fill this #'
+payload = 'test'
 
 # gdb.attach(p, 'finish\n'*6)     # for debug, use tmux or byobu
 

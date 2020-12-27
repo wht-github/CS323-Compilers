@@ -55,4 +55,6 @@ testp1 :
 	./runtest.sh bin/splc test1/selected-anonym
 mytest : 
 	./runtest.sh bin/splc test
+grade2 : 
+	./runtest.sh bin/splc selected-anonym
 .PHONY : clean
